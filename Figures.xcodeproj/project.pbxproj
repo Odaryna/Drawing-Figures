@@ -14,6 +14,7 @@
 		C3DE6B581B9DD0EF00BFD486 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3DE6B571B9DD0EF00BFD486 /* Images.xcassets */; };
 		C3DE6B5B1B9DD0EF00BFD486 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3DE6B591B9DD0EF00BFD486 /* LaunchScreen.xib */; };
 		C3DE6B671B9DD0EF00BFD486 /* FiguresTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B661B9DD0EF00BFD486 /* FiguresTests.m */; };
+		C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		C3DE6B601B9DD0EF00BFD486 /* FiguresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiguresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DE6B651B9DD0EF00BFD486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3DE6B661B9DD0EF00BFD486 /* FiguresTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FiguresTests.m; sourceTree = "<group>"; };
+		C3DE6B701B9DD11900BFD486 /* DrawingFigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingFigure.h; sourceTree = "<group>"; };
+		C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingFigure.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +101,8 @@
 			children = (
 				C3DE6B4B1B9DD0EF00BFD486 /* Info.plist */,
 				C3DE6B4C1B9DD0EF00BFD486 /* main.m */,
+				C3DE6B701B9DD11900BFD486 /* DrawingFigure.h */,
+				C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */,
 				C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */,
 				C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */,
 				C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */,
