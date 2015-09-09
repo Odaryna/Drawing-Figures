@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     //[self.view addSubview:tyh];
-    DrawingFigure* figure = [[DrawingFigure alloc] initWithType:4];
+    DrawingFigure* figure = [[DrawingFigure alloc] initWithType:6];
     [self.view addSubview:figure];
 
 }

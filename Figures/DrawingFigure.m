@@ -161,7 +161,7 @@
         int y;
         for(int x=rect.origin.x; x < rect.size.width; x++)
             {
-                    y = ((rect.size.height/2) * sin(((x*4) % 360) * M_PI/180)) + 187;
+                    y = ((rect.size.height/2) * sin(x/M_PI/4)) + 187;
                     if (x == 0)
                         {
                               CGContextMoveToPoint(currentContext, x, y);
