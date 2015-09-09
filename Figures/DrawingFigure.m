@@ -138,11 +138,11 @@
     CGContextSetRGBStrokeColor(currentContext, 1.0, 0.8, 1.0, 1.0);
     CGContextSetRGBFillColor(currentContext, 0.8, 0.3, 0.3, 1.0);
     
-    CGRect innerRect = CGRectInset (rect, rect.size.width*0.7, rect.size.height*0.4);
+    CGRect innerRect = CGRectInset (rect, rect.size.width*0.3, rect.size.height*0.3);
     
-    CGContextAddArc(currentContext, innerRect.origin.x , innerRect.origin.y, 20, 0, M_PI *2, 0);
+    CGContextAddArc(currentContext, innerRect.origin.x , innerRect.origin.y, innerRect.size.width/6, 0, M_PI *2, 0);
     CGContextMoveToPoint(currentContext, 240, 125);
-    CGContextAddArc(currentContext, innerRect.size.width, innerRect.origin.y, 20, 0, M_PI *2, 0);
+    CGContextAddArc(currentContext, innerRect.size.width, innerRect.origin.y, innerRect.size.width/6, 0, M_PI *2, 0);
     CGContextFillPath(currentContext);
 
     
@@ -208,10 +208,10 @@
         }
     }
     
+    CGContextSetRGBFillColor(currentContext,0.7,0.4,0.5,1);
     CGContextClosePath(currentContext);
-    [[UIColor clearColor] setFill];
-    [[UIColor redColor] setStroke];
-    CGContextDrawPath (currentContext, kCGPathFillStroke);
+    CGContextFillPath(currentContext);
+    //CGContextDrawPath (currentContext, kCGPathFillStroke);
 }
 
 

@@ -11,6 +11,8 @@
 
 @interface ViewController ()
 
+-(void) placeFigure;
+
 @end
 
 @implementation ViewController
@@ -19,21 +21,28 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    //DrawingFigure* figure = [[DrawingFigure alloc] initWithType:DFFigureTypeHexagon];
-    //figure.frame = CGRectMake(0, 0, 375, 375);
-    //[self.view addSubview:figure];
-    
+   
+    for (int item = 0; item < 50; ++item)
+    {
+        [self placeFigure];
+    }
+
+
+}
+
+-(void) placeFigure
+{
     NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
     DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type];
-        CGSize size = self.view.frame.size;
-        CGFloat figureSize = 50 + ((float)rand() / (float)RAND_MAX);
+    CGSize size = self.view.frame.size;
+    CGFloat figureSize = 50 + ((float)rand() / (float)RAND_MAX);
     
-        CGRect figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
-                                  ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
-                                  figureSize, figureSize);
+    CGRect figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
+                                    ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
+                                    figureSize, figureSize);
     
-        ob.frame = figureFrame;
-
+    ob.frame = figureFrame;
+    [self.view addSubview:ob];
 }
 
 - (void)didReceiveMemoryWarning {
