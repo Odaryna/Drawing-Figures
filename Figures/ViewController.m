@@ -18,9 +18,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    //[self.view addSubview:tyh];
-    DrawingFigure* figure = [[DrawingFigure alloc] initWithType:6];
+
+    DrawingFigure* figure = [[DrawingFigure alloc] initWithType:DFFigureTypeTriangular];
+    figure.frame = CGRectMake(0, 0, 375, 375);
     [self.view addSubview:figure];
 
 }
