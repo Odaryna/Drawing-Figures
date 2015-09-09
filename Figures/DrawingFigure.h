@@ -20,12 +20,12 @@ typedef NS_ENUM(NSInteger, DFFigureType)
     DFFigureTypeTrapezoid,
     DFFigureTypeSinus,
     DFFigureTypeSmile,
-    DFFigureTypeNAngles
+    DFFigureTypeNAngles,
+    DFFigureTypeCount
 };
 
 @property (assign, nonatomic) enum DFFigureType figure;
 
 - (DrawingFigure*) initWithType:(DFFigureType)figureType;
-- (DrawingFigure*) initWithType:(DFFigureType)figureType number:(NSInteger)angles;
 
 @end

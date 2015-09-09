@@ -32,32 +32,22 @@
     if (self = [super init])
     {
         self.figure = figure;
+        
     }
     return self;
 }
 
-- (DrawingFigure*) initWithType:(DFFigureType)figure number:(NSInteger) angles
-{
-    if (self = [super init])
-    {
-        self.figure = figure;
-        self.countOfAngles = angles;
-    }
-    return self;
-}
 
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    CGContextSetRGBFillColor(currentContext, 150,150,150,0.6);
+    //CGContextSetRGBFillColor(currentContext, 150,150,150,0.6);
     [self figureCheck:self :currentContext :rect];
 }
 
 -(void)drawTriangle:(CGContextRef)currentContext :(CGRect)rect
 {
-     //CGRect innerRect = CGRectInset (rect, 1, 1);
-    
-    CGPoint arrayOfPoints[3] =
+       CGPoint arrayOfPoints[3] =
     {
         CGPointMake(rect.origin.x, rect.size.height),
         CGPointMake(rect.size.width, rect.size.height),
@@ -75,9 +65,7 @@
 
 -(void)drawRectangle:(CGContextRef)currentContext :(CGRect)rect
 {
-     //CGRect innerRect = CGRectInset (rect, 20, 20);
-    
-    CGContextBeginPath(currentContext);
+       CGContextBeginPath(currentContext);
     CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
     CGContextAddRect(currentContext, rect);
     CGContextFillPath(currentContext);
@@ -85,7 +73,6 @@
 
 -(void)drawRhomb:(CGContextRef)currentContext :(CGRect)rect
 {
-    //CGRect innerRect = CGRectInset (rect, 2, 2);
     
     CGPoint arrayOfPoints[4] =
     {
@@ -105,8 +92,6 @@
 
 -(void)drawCircle:(CGContextRef)currentContext :(CGRect)rect
 {
-    //CGRect innerRect = CGRectInset (rect, 1, 1);
-    
     CGContextSetRGBFillColor (currentContext, 3.0, 1.0, 0.0, 1.0);
     CGContextFillEllipseInRect (currentContext, rect);
     
@@ -123,6 +108,7 @@
                                          CGPointMake(rect.size.width*3/4, rect.size.height),
                                          CGPointMake(rect.size.width/4, rect.size.height),
                                          CGPointMake(rect.origin.x,rect.size.height/2)};
+    
         CGContextBeginPath(currentContext);
         CGContextSetRGBFillColor(currentContext,0.8,0.3,0.5,1);
         CGContextAddLines(currentContext, arrayOfPoints, 6);
@@ -197,8 +183,8 @@
     float radius = center.x;
     NSMutableArray *result = [NSMutableArray array];
     float angle = (2.0 * M_PI) / count;
-    float interiorAngle = M_PI - angle;
-    float rotationDelta = angle - (0.5*interiorAngle);
+    float exteriorAngle = M_PI - angle;
+    float rotationDelta = angle - (0.5*exteriorAngle);
     
     for (int currentAngle = 0; currentAngle < count; currentAngle++)
     {
@@ -224,7 +210,7 @@
     
     CGContextClosePath(currentContext);
     [[UIColor clearColor] setFill];
-    [[UIColor blackColor] setStroke];
+    [[UIColor redColor] setStroke];
     CGContextDrawPath (currentContext, kCGPathFillStroke);
 }
 
@@ -238,13 +224,13 @@
             [self drawTriangle:currentContext :innerRect];
             break;
         case 1:
-            [self drawRectangle:currentContext :innerRect];
+            [self drawCircle:currentContext :innerRect];
             break;
         case 2:
-            [self drawRhomb:currentContext :innerRect];
+            [self drawRectangle:currentContext :innerRect];
             break;
         case 3:
-            [self drawCircle:currentContext :innerRect];
+            [self drawRhomb:currentContext :innerRect];
             break;
         case 4:
             [self drawHexagon:currentContext :innerRect];

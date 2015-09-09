@@ -19,9 +19,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
 
-    DrawingFigure* figure = [[DrawingFigure alloc] initWithType:DFFigureTypeTriangular];
-    figure.frame = CGRectMake(0, 0, 375, 375);
-    [self.view addSubview:figure];
+    //DrawingFigure* figure = [[DrawingFigure alloc] initWithType:DFFigureTypeHexagon];
+    //figure.frame = CGRectMake(0, 0, 375, 375);
+    //[self.view addSubview:figure];
+    
+    NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
+    DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type];
+        CGSize size = self.view.frame.size;
+        CGFloat figureSize = 50 + ((float)rand() / (float)RAND_MAX);
+    
+        CGRect figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
+                                  ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
+                                  figureSize, figureSize);
+    
+        ob.frame = figureFrame;
 
 }
 
