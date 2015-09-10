@@ -22,7 +22,7 @@
 
 
    
-    for (int item = 0; item < 50; ++item)
+    for (int item = 0; item < 200; ++item)
     {
         [self placeFigure];
     }

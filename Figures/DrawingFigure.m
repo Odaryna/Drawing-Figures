@@ -22,17 +22,17 @@
 - (void) drawSinus:(CGContextRef)currentContext :(CGRect)rect;
 - (void) drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count;
 - (void) figureCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect;
-- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext;
+- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
 
 @end
 
 @implementation DrawingFigure
 
-- (DrawingFigure*) initWithType: (DFFigureType)figure: (DFFillingColor)color;
+- (DrawingFigure*) initWithType:(DFFigureType)figureType :(DFFillingColor)color;
 {
     if (self = [super init])
     {
-        self.figure = figure;
+        self.figure = figureType;
         self.color = color;
     }
     return self;
@@ -42,7 +42,7 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    [self colorCheck:self : currentContext];
+    [self colorCheck:self :currentContext :rect];
     [self figureCheck:self :currentContext :rect];
 }
 
@@ -242,31 +242,43 @@
     }
 }
 
-- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext
+- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
 {
     switch(draw.color)
     {
         case 0:
+            CGContextSetRGBFillColor(currentContext, 4, 0.8, 7, 0.9);
+            CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor(currentContext, 0.8, 0.3, 0.3, 1.0);
             CGContextSetRGBStrokeColor(currentContext, 1.5, 0.2, 1.0, 1.0);
             break;
         case 1:
+            CGContextSetRGBFillColor(currentContext, 0.3, 10, 5, 0.9);
+            CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
             CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
             break;
         case 2:
+            CGContextSetRGBFillColor(currentContext, 56, 87, 122, 0.9);
+            CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor(currentContext, 1.5, 0.2, 1.0, 1.0);
             CGContextSetRGBStrokeColor(currentContext,0.8,0.5,0.5,1);
             break;
         case 3:
+            CGContextSetRGBFillColor(currentContext, 0.8, 1.5, 10, 0.9);
+            CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor (currentContext, 3.0, 1.0, 0.0, 1.0);
             CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
             break;
         case 4:
+            CGContextSetRGBFillColor(currentContext, 43, 157, 32, 0.9);
+            CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor (currentContext, 0.0, 0.0, 1.0, 1.0);
             CGContextSetRGBStrokeColor(currentContext,0.7,0.4,0.5,1);
             break;
         case 5:
+            CGContextSetRGBFillColor(currentContext, 33, 12, 23, 0.9);
+            CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor (currentContext, 0.0, 0.0, 0.0, 1.0);
             CGContextSetRGBStrokeColor(currentContext, 0.8, 0.3, 0.3, 1.0);
             break;
