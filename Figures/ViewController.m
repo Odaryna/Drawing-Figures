@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+
 
    
     for (int item = 0; item < 50; ++item)
@@ -33,7 +33,8 @@
 -(void) placeFigure
 {
     NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
-    DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type];
+    NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
+    DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
     CGSize size = self.view.frame.size;
     CGFloat figureSize = 50 + ((float)rand() / (float)RAND_MAX);
     

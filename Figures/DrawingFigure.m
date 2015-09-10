@@ -22,17 +22,18 @@
 - (void) drawSinus:(CGContextRef)currentContext :(CGRect)rect;
 - (void) drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count;
 - (void) figureCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect;
+- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext;
 
 @end
 
 @implementation DrawingFigure
 
-- (DrawingFigure*) initWithType:(DFFigureType)figure
+- (DrawingFigure*) initWithType: (DFFigureType)figure: (DFFillingColor)color;
 {
     if (self = [super init])
     {
         self.figure = figure;
-        
+        self.color = color;
     }
     return self;
 }
@@ -41,7 +42,7 @@
 - (void)drawRect:(CGRect)rect
 {
     CGContextRef currentContext = UIGraphicsGetCurrentContext();
-    //CGContextSetRGBFillColor(currentContext, 150,150,150,0.6);
+    [self colorCheck:self : currentContext];
     [self figureCheck:self :currentContext :rect];
 }
 
@@ -55,7 +56,6 @@
     };
     
     CGContextBeginPath(currentContext);
-    CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
     CGContextSetLineWidth(currentContext, 70);
     CGContextAddLines(currentContext, arrayOfPoints, 3);
     CGContextClosePath(currentContext);
@@ -65,16 +65,14 @@
 
 -(void)drawRectangle:(CGContextRef)currentContext :(CGRect)rect
 {
-       CGContextBeginPath(currentContext);
-    CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
+    CGContextBeginPath(currentContext);
     CGContextAddRect(currentContext, rect);
     CGContextFillPath(currentContext);
 }
 
 -(void)drawRhomb:(CGContextRef)currentContext :(CGRect)rect
 {
-    
-    CGPoint arrayOfPoints[4] =
+     CGPoint arrayOfPoints[4] =
     {
         CGPointMake(rect.size.width/2, rect.origin.y),
         CGPointMake(rect.size.width, rect.size.height/2),
@@ -83,19 +81,15 @@
     };
     
     CGContextBeginPath(currentContext);
-    CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
     CGContextAddLines(currentContext, arrayOfPoints, 4);
     CGContextClosePath(currentContext);
     CGContextFillPath(currentContext);
-   
 }
 
 -(void)drawCircle:(CGContextRef)currentContext :(CGRect)rect
 {
-    CGContextSetRGBFillColor (currentContext, 3.0, 1.0, 0.0, 1.0);
     CGContextFillEllipseInRect (currentContext, rect);
-    
-    CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
+   
     CGContextSetLineWidth (currentContext, 3.0);
     CGContextStrokeEllipseInRect (currentContext, rect);
 }
@@ -110,7 +104,6 @@
                                          CGPointMake(rect.origin.x,rect.size.height/2)};
     
         CGContextBeginPath(currentContext);
-        CGContextSetRGBFillColor(currentContext,0.8,0.3,0.5,1);
         CGContextAddLines(currentContext, arrayOfPoints, 6);
         CGContextClosePath(currentContext);
         CGContextFillPath(currentContext);
@@ -125,7 +118,6 @@
                                          CGPointMake(rect.origin.x ,rect.size.height)};
     
         CGContextBeginPath(currentContext);
-        CGContextSetRGBFillColor(currentContext,0.7,0.4,0.5,1);
         CGContextAddLines(currentContext, arrayOfPoints, 4);
         CGContextClosePath(currentContext);
         CGContextFillPath(currentContext);
@@ -135,31 +127,31 @@
 {
     [self drawCircle:currentContext: rect];
     
-    CGContextSetRGBStrokeColor(currentContext, 1.0, 0.8, 1.0, 1.0);
-    CGContextSetRGBFillColor(currentContext, 0.8, 0.3, 0.3, 1.0);
+    CGFloat eyeW = rect.size.width / 6;
+    CGFloat inBetween = rect.size.width / 5;
     
-    CGRect innerRect = CGRectInset (rect, rect.size.width*0.3, rect.size.height*0.3);
+    CGRect rectSmallFirst = CGRectMake(rect.origin.x + rect.size.width / 2 - inBetween - eyeW / 2, rect.origin.y + rect.size.height / 4, rect.size.width/5, rect.size.height/5);
+   
     
-    CGContextAddArc(currentContext, innerRect.origin.x , innerRect.origin.y, innerRect.size.width/6, 0, M_PI *2, 0);
-    CGContextMoveToPoint(currentContext, 240, 125);
-    CGContextAddArc(currentContext, innerRect.size.width, innerRect.origin.y, innerRect.size.width/6, 0, M_PI *2, 0);
-    CGContextFillPath(currentContext);
+    CGRect rectSmallSecond = CGRectMake(rect.origin.x + rect.size.width / 2 + inBetween - eyeW / 2, rect.origin.y + rect.size.height / 4, rect.size.width/5, rect.size.height/5);
+    
+    CGContextFillEllipseInRect (currentContext, rectSmallFirst);
+    CGContextFillEllipseInRect (currentContext, rectSmallSecond);
 
     
-    CGContextMoveToPoint(currentContext, 100, 300);
-    CGContextAddCurveToPoint(currentContext, 100, 250, 250, 275 ,275, 250);
+    CGContextMoveToPoint(currentContext, rect.size.width/3, rect.size.height*2/3);
+    CGContextAddCurveToPoint(currentContext, rect.size.width/3, rect.size.height*2/3, rect.size.width*2/3, rect.size.height*3/4 ,rect.size.width*3/4, rect.size.height*2/3);
     CGContextStrokePath(currentContext);
 
     }
 
 -(void)drawSinus:(CGContextRef)currentContext :(CGRect)rect
 {
-    CGContextSetRGBStrokeColor(currentContext, 0.8, 0.3, 0.3, 1.0);
         int y;
         for(int x=rect.origin.x; x < rect.size.width; x++)
             {
-                    y = ((rect.size.height/2) * sin(x/M_PI/4)) + 187;
-                    if (x == 0)
+                    y = ((rect.size.height/2) * sin(x/M_PI)) + rect.size.height/2;
+                    if (x == rect.origin.x)
                         {
                               CGContextMoveToPoint(currentContext, x, y);
                         }
@@ -170,7 +162,6 @@
                     }
                 }
         CGContextStrokePath(currentContext);
-    
 
 }
 
@@ -208,10 +199,9 @@
         }
     }
     
-    CGContextSetRGBFillColor(currentContext,0.7,0.4,0.5,1);
     CGContextClosePath(currentContext);
     CGContextFillPath(currentContext);
-    //CGContextDrawPath (currentContext, kCGPathFillStroke);
+    CGContextDrawPath (currentContext, kCGPathFillStroke);
 }
 
 
@@ -252,4 +242,37 @@
     }
 }
 
+- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext
+{
+    switch(draw.color)
+    {
+        case 0:
+            CGContextSetRGBFillColor(currentContext, 0.8, 0.3, 0.3, 1.0);
+            CGContextSetRGBStrokeColor(currentContext, 1.5, 0.2, 1.0, 1.0);
+            break;
+        case 1:
+            CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
+            CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
+            break;
+        case 2:
+            CGContextSetRGBFillColor(currentContext, 1.5, 0.2, 1.0, 1.0);
+            CGContextSetRGBStrokeColor(currentContext,0.8,0.5,0.5,1);
+            break;
+        case 3:
+            CGContextSetRGBFillColor (currentContext, 3.0, 1.0, 0.0, 1.0);
+            CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
+            break;
+        case 4:
+            CGContextSetRGBFillColor (currentContext, 0.0, 0.0, 1.0, 1.0);
+            CGContextSetRGBStrokeColor(currentContext,0.7,0.4,0.5,1);
+            break;
+        case 5:
+            CGContextSetRGBFillColor (currentContext, 0.0, 0.0, 0.0, 1.0);
+            CGContextSetRGBStrokeColor(currentContext, 0.8, 0.3, 0.3, 1.0);
+            break;
+        default:
+            break;
+    }
+
+}
 @end
