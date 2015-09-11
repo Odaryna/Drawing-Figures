@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C32A76DA1BA2D7FD003FDD0F /* FigureController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A76D91BA2D7FD003FDD0F /* FigureController.m */; };
 		C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B4C1B9DD0EF00BFD486 /* main.m */; };
 		C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B4F1B9DD0EF00BFD486 /* AppDelegate.m */; };
 		C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B521B9DD0EF00BFD486 /* ViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C32A76D81BA2D7FD003FDD0F /* FigureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FigureController.h; sourceTree = "<group>"; };
+		C32A76D91BA2D7FD003FDD0F /* FigureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FigureController.m; sourceTree = "<group>"; };
 		C3DE6B471B9DD0EF00BFD486 /* Figures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Figures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DE6B4B1B9DD0EF00BFD486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3DE6B4C1B9DD0EF00BFD486 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -92,6 +95,8 @@
 				C3DE6B571B9DD0EF00BFD486 /* Images.xcassets */,
 				C3DE6B591B9DD0EF00BFD486 /* LaunchScreen.xib */,
 				C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */,
+				C32A76D81BA2D7FD003FDD0F /* FigureController.h */,
+				C32A76D91BA2D7FD003FDD0F /* FigureController.m */,
 			);
 			path = Figures;
 			sourceTree = "<group>";
@@ -228,6 +233,7 @@
 				C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */,
 				C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */,
 				C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */,
+				C32A76DA1BA2D7FD003FDD0F /* FigureController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +430,7 @@
 				C3DE6B6C1B9DD0EF00BFD486 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C3DE6B6D1B9DD0EF00BFD486 /* Build configuration list for PBXNativeTarget "FiguresTests" */ = {
 			isa = XCConfigurationList;
@@ -432,6 +439,7 @@
 				C3DE6B6F1B9DD0EF00BFD486 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
