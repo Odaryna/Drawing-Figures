@@ -7,29 +7,22 @@
 //
 
 #import "FigureController.h"
-#import "DrawingFigure.h"
+
 
 @interface FigureController ()
-
--(void) placeFigure;
-
 @end
 
 @implementation FigureController
 
+@synthesize squares = _squares;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
-    for (int item = 0; item < 200; ++item)
-    {
-        [self placeFigure];
-    }
-    
+   
     
 }
 
--(void) placeFigure
+- (DrawingFigure*) placeFigure
 {
     NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
     NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
@@ -41,7 +34,9 @@
                                     ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
                                     figureSize, figureSize);
     ob.frame = figureFrame;
-    [self.view addSubview:ob];
+    //self.squares addObject:ob];
+    //[self.view addSubview:ob];
+    return ob;
 }
 
 - (void)didReceiveMemoryWarning {

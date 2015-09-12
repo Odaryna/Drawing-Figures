@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DrawingFigure.h"
 
 @interface FigureController : UIViewController
+
+@property (nonatomic, strong) NSMutableArray *squares;
+
+- (DrawingFigure*) placeFigure;
 
 @end

@@ -8,10 +8,9 @@
 
 #import "ViewController.h"
 #import "DrawingFigure.h"
+#import "FigureController.h"
 
 @interface ViewController ()
-
--(void) placeFigure;
 
 @end
 
@@ -19,29 +18,36 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
     
-    for (int item = 0; item < 200; ++item)
+    FigureController* figureController = [[FigureController alloc] init];
+    DrawingFigure* figure;
+    
+    
+    
+    figureController.squares = [[NSMutableArray alloc] init];
+    
+    for (int item = 0; item < 10; ++item)
     {
-        [self placeFigure];
+        figure = [figureController placeFigure];
+        [figureController.squares addObject:figure];
+        [self.view addSubview:figure];
+        
     }
 
-
+    for (UIView *subview in [self.view subviews])
+    {
+       UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(moveSubViewWithGestureRecognizer:)];
+        [subview addGestureRecognizer:panGestureRecognizer];
+    }
 }
 
--(void) placeFigure
+-(void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer
 {
-    NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
-    NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
-    DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
-    CGSize size = self.view.frame.size;
-    CGFloat figureSize = 50 + ((float)rand() / (float)RAND_MAX);
+    UIView *pannedView = recognizer.view;
+    CGPoint translation = [recognizer translationInView:pannedView.superview];
+    pannedView.center = CGPointMake(pannedView.center.x + translation.x, pannedView.center.y + translation.y);
+    [recognizer setTranslation:CGPointZero inView:pannedView.superview];
     
-    CGRect figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
-                                    ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
-                                    figureSize, figureSize);
-    ob.frame = figureFrame;
-    [self.view addSubview:ob];
 }
 
 - (void)didReceiveMemoryWarning {
