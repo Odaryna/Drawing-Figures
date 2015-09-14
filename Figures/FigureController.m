@@ -7,51 +7,56 @@
 //
 
 #import "FigureController.h"
+#import <QuartzCore/QuartzCore.h>
 
-static NSInteger const kNumberOfFigures = 15;
 
 @interface FigureController ()
 
 @property (nonatomic, strong) NSMutableArray *squares;
-@property (nonatomic, assign) NSInteger counter;
+@property (nonatomic, assign) NSInteger kNumberOfFigures;
 @property (nonatomic, assign) CGFloat figureSize ;
+@property (nonatomic, assign) DrawingFigure *currentFigure ;
 
-- (void) placeFigure;
+
+- (void) placeFigure:(NSInteger)currentNumber;
 - (void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer;
-//- (void)detectSwipe:(UISwipeGestureRecognizer *)recognizer;
+
 @end
 
 @implementation FigureController
 
 @synthesize squares = _squares;
-@synthesize counter = _counter;
+@synthesize kNumberOfFigures = _kNumberOfFigures;
 @synthesize figureSize = _figureSize;
+@synthesize currentFigure = _currentFigure;
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.kNumberOfFigures = 20;
     self.figureSize = 50 + ((float)rand() / (float)RAND_MAX);
     self.squares = [[NSMutableArray alloc] init];
 
-    [self placeFigure];
+    for (int i = 0; i < self.kNumberOfFigures; ++i)
+    {
+        [self placeFigure:i];
+    }
    
    
     UIPanGestureRecognizer *panGestureRecognizer;
     for (UIView *subview in [self.view subviews])
     {
-            panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
+        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
         [subview addGestureRecognizer:panGestureRecognizer];
     }
     
 }
 
-- (void) placeFigure
+- (void) placeFigure:(NSInteger)currentNumber
 {
     
-    for (int i = 0; i < kNumberOfFigures; ++i)
-    {
-        
+
         NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
         NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
         DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
@@ -59,7 +64,7 @@ static NSInteger const kNumberOfFigures = 15;
         
         // 2. Find frame
         CGRect figureFrame = CGRectZero;
-        for (int j = 0; j < 1000; ++j)
+        while (true)
         {
             figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - self.figureSize),
                                                ((float)rand() / (float)RAND_MAX) * (size.height - self.figureSize),
@@ -79,19 +84,17 @@ static NSInteger const kNumberOfFigures = 15;
             {
                 break;
             }
-            // 3. Check if intersects other views
-            // -- YES - continue
-            // -- NO - figureFrame = candidate
         }
-        
-        // 4. setFrame
         
         ob.frame = figureFrame;
         [self.squares addObject:ob];
         [self.view addSubview:ob];
-        
-    }
-    
+        UIPanGestureRecognizer *panGestureRecognizer;
+
+        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
+        [[[self.view subviews] objectAtIndex:currentNumber ] addGestureRecognizer:panGestureRecognizer];
+
+
 
 }
 
@@ -99,11 +102,29 @@ static NSInteger const kNumberOfFigures = 15;
 -(void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer
 {
     UIView *pannedView = recognizer.view;
+    bool ifRect = false;
+    
+    for (DrawingFigure* figure in self.squares)
+    {
+        if (pannedView == figure)
+        {
+            ifRect = true;
+            self.currentFigure = figure;
+            break;
+        }
+    }
+    
+    if (!ifRect) return;
+    
+    
     switch (recognizer.state)
     {
         case   UIGestureRecognizerStateBegan:
         {
-            pannedView.transform = CGAffineTransformMakeScale(1.5, 1.8);
+            pannedView.transform = CGAffineTransformMakeScale(1.3, 1.3);
+            pannedView.layer.borderColor = [UIColor blackColor].CGColor;
+            pannedView.layer.borderWidth = 2.0;
+            pannedView.layer.cornerRadius = 3.0;
             break;
         }
         case   UIGestureRecognizerStateChanged:
@@ -116,6 +137,29 @@ static NSInteger const kNumberOfFigures = 15;
         case   UIGestureRecognizerStateEnded:  case UIGestureRecognizerStateCancelled:
         {
             
+            pannedView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+            pannedView.layer.cornerRadius = 0.0;
+            pannedView.layer.borderWidth = 0.0;
+            
+            for (DrawingFigure* figure in self.squares)
+            {
+                if (CGRectIntersectsRect([self.currentFigure frame], [figure frame]) && (self.currentFigure != figure))
+                {
+                    if ([figure figure]  == [self.currentFigure figure])
+                    {
+                        [pannedView removeFromSuperview];
+                        [figure removeFromSuperview];
+                        self.kNumberOfFigures -= 2;
+                    }
+                    else
+                    {
+                        [self placeFigure:self.kNumberOfFigures];
+                        self.kNumberOfFigures++;
+                    }
+                    break;
+                }
+            }
+
             
             break;
         }
