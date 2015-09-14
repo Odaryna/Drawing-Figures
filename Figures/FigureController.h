@@ -11,8 +11,6 @@
 
 @interface FigureController : UIViewController
 
-@property (nonatomic, strong) NSMutableArray *squares;
 
-- (DrawingFigure*) placeFigure;
 
 @end
