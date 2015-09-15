@@ -23,8 +23,6 @@
 - (void) drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count;
 - (void) figureCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect;
 - (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
-//- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
-
 
 @end
 
@@ -290,18 +288,5 @@
     }
 
 }
-
-
-/*- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    [self.superview bringSubviewToFront:self];
-    CGRect frameRect = self.frame;
-    frameRect.size.width = 100;
-    frameRect.size.height= 100;
-    self.frame = frameRect;
-    
-}*/
-
-
 
 @end

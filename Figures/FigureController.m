@@ -16,6 +16,7 @@
 @property (nonatomic, assign) NSInteger kNumberOfFigures;
 @property (nonatomic, assign) CGFloat figureSize ;
 @property (nonatomic, assign) DrawingFigure *currentFigure ;
+@property (nonatomic, retain) UIPanGestureRecognizer *panGestureRecognizer;
 
 
 - (void) placeFigure:(NSInteger)currentNumber;
@@ -29,6 +30,7 @@
 @synthesize kNumberOfFigures = _kNumberOfFigures;
 @synthesize figureSize = _figureSize;
 @synthesize currentFigure = _currentFigure;
+@synthesize panGestureRecognizer = _panGestureRecognizer;
 
 
 - (void)viewDidLoad {
@@ -41,14 +43,6 @@
     for (int i = 0; i < self.kNumberOfFigures; ++i)
     {
         [self placeFigure:i];
-    }
-   
-   
-    UIPanGestureRecognizer *panGestureRecognizer;
-    for (UIView *subview in [self.view subviews])
-    {
-        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
-        [subview addGestureRecognizer:panGestureRecognizer];
     }
     
 }
@@ -89,10 +83,10 @@
         ob.frame = figureFrame;
         [self.squares addObject:ob];
         [self.view addSubview:ob];
-        UIPanGestureRecognizer *panGestureRecognizer;
+    
 
-        panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
-        [[[self.view subviews] objectAtIndex:currentNumber ] addGestureRecognizer:panGestureRecognizer];
+        self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
+        [[[self.view subviews] objectAtIndex:currentNumber  ] addGestureRecognizer:self.panGestureRecognizer];
 
 
 
@@ -103,9 +97,12 @@
 {
     UIView *pannedView = recognizer.view;
     bool ifRect = false;
+    int indexForCurrent = 0;
+    int indexForFigure = 0;
     
     for (DrawingFigure* figure in self.squares)
     {
+        indexForCurrent++;
         if (pannedView == figure)
         {
             ifRect = true;
@@ -116,6 +113,7 @@
     
     if (!ifRect) return;
     
+    if (pannedView == self.view) return;
     
     switch (recognizer.state)
     {
@@ -132,6 +130,30 @@
             CGPoint translation = [recognizer translationInView:self.view];
             pannedView.center = CGPointMake(pannedView.center.x + translation.x, pannedView.center.y + translation.y);
             [recognizer setTranslation:CGPointZero inView:self.view];
+            
+            /*for (int i = 0; i < [[self.view subviews] count ]; i++)
+            {
+                UIView* transformedView = [[self.view subviews] objectAtIndex:i ];
+                if (CGRectIntersectsRect([transformedView frame], [pannedView frame]) && (transformedView != pannedView))
+                {
+                    transformedView.transform = CGAffineTransformMakeScale(1.3, 1.3);
+                    transformedView.layer.borderColor = [UIColor blackColor].CGColor;
+                    transformedView.layer.borderWidth = 2.0;
+                    transformedView.layer.cornerRadius = 3.0;
+                    i--;
+                }
+                else
+                {
+                    transformedView.transform = CGAffineTransformMakeScale(1.0, 1.0);
+                    transformedView.layer.cornerRadius = 0.0;
+                    transformedView.layer.borderWidth = 0.0;
+                    break;
+                }
+                
+            }*/
+            
+
+            
             break;
         }
         case   UIGestureRecognizerStateEnded:  case UIGestureRecognizerStateCancelled:
@@ -140,15 +162,31 @@
             pannedView.transform = CGAffineTransformMakeScale(1.0, 1.0);
             pannedView.layer.cornerRadius = 0.0;
             pannedView.layer.borderWidth = 0.0;
+
             
             for (DrawingFigure* figure in self.squares)
             {
+                indexForFigure++;
                 if (CGRectIntersectsRect([self.currentFigure frame], [figure frame]) && (self.currentFigure != figure))
                 {
                     if ([figure figure]  == [self.currentFigure figure])
                     {
+                        [self.squares removeObjectAtIndex:indexForFigure];
+                        [self.squares removeObjectAtIndex:indexForCurrent];
                         [pannedView removeFromSuperview];
-                        [figure removeFromSuperview];
+                        
+                        UIView *intersectsView = self.view;
+                        
+                        for(UIView *subview in [self.view subviews])
+                        {
+                            if (subview == figure)
+                            {
+                                intersectsView = subview;
+                                break;
+                            }
+                        }
+                        
+                        [intersectsView removeFromSuperview];
                         self.kNumberOfFigures -= 2;
                     }
                     else
