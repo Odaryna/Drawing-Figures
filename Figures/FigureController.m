@@ -14,13 +14,13 @@
 
 @property (nonatomic, strong) NSMutableArray *squares;
 @property (nonatomic, assign) NSInteger kNumberOfFigures;
-@property (nonatomic, assign) CGFloat figureSize ;
-@property (nonatomic, assign) DrawingFigure *currentFigure ;
-@property (nonatomic, retain) UIPanGestureRecognizer *panGestureRecognizer;
 
-
-- (void) placeFigure:(NSInteger)currentNumber;
+- (void) placeFigure;
 - (void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer;
+- (void) zoomIn:(UIView*) view;
+- (void) zoomOut:(UIView*) view;
+- (void) algorithmForRemovingAndAdding:(DrawingFigure*) view;
+- (void) algorithmForMovingRect:(DrawingFigure *)view;
 
 @end
 
@@ -28,41 +28,35 @@
 
 @synthesize squares = _squares;
 @synthesize kNumberOfFigures = _kNumberOfFigures;
-@synthesize figureSize = _figureSize;
-@synthesize currentFigure = _currentFigure;
-@synthesize panGestureRecognizer = _panGestureRecognizer;
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.kNumberOfFigures = 20;
-    self.figureSize = 50 + ((float)rand() / (float)RAND_MAX);
     self.squares = [[NSMutableArray alloc] init];
 
     for (int i = 0; i < self.kNumberOfFigures; ++i)
     {
-        [self placeFigure:i];
+        [self placeFigure];
     }
-    
 }
 
-- (void) placeFigure:(NSInteger)currentNumber
+- (void) placeFigure
 {
-    
-
         NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
         NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
         DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
         CGSize size = self.view.frame.size;
+    
+        NSInteger figureSize = 50 + ((float)rand() / (float)RAND_MAX);
         
         // 2. Find frame
         CGRect figureFrame = CGRectZero;
         while (true)
         {
-            figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - self.figureSize),
-                                               ((float)rand() / (float)RAND_MAX) * (size.height - self.figureSize),
-                                               self.figureSize, self.figureSize);
+            figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
+                                               ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
+                                               figureSize, figureSize);
             
             BOOL intersects = NO;
             for (DrawingFigure* figure in self.squares)
@@ -81,48 +75,31 @@
         }
         
         ob.frame = figureFrame;
-        [self.squares addObject:ob];
-        [self.view addSubview:ob];
     
+    [self.squares addObject:ob];
+    [self.view addSubview:ob];
 
-        self.panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
-        [[[self.view subviews] objectAtIndex:currentNumber  ] addGestureRecognizer:self.panGestureRecognizer];
-
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
+    [ob addGestureRecognizer:panGestureRecognizer];
 
 
 }
 
 
--(void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer
+- (void)moveSubViewWithGestureRecognizer:(UIPanGestureRecognizer *)recognizer
 {
-    UIView *pannedView = recognizer.view;
-    bool ifRect = false;
-    int indexForCurrent = 0;
-    int indexForFigure = 0;
-    
-    for (DrawingFigure* figure in self.squares)
+    if (![recognizer.view isKindOfClass:[DrawingFigure class]])
     {
-        indexForCurrent++;
-        if (pannedView == figure)
-        {
-            ifRect = true;
-            self.currentFigure = figure;
-            break;
-        }
+        return;
     }
     
-    if (!ifRect) return;
-    
-    if (pannedView == self.view) return;
+    DrawingFigure *pannedView = (DrawingFigure*)recognizer.view;
     
     switch (recognizer.state)
     {
         case   UIGestureRecognizerStateBegan:
         {
-            pannedView.transform = CGAffineTransformMakeScale(1.3, 1.3);
-            pannedView.layer.borderColor = [UIColor blackColor].CGColor;
-            pannedView.layer.borderWidth = 2.0;
-            pannedView.layer.cornerRadius = 3.0;
+            [self zoomIn:pannedView];
             break;
         }
         case   UIGestureRecognizerStateChanged:
@@ -131,74 +108,13 @@
             pannedView.center = CGPointMake(pannedView.center.x + translation.x, pannedView.center.y + translation.y);
             [recognizer setTranslation:CGPointZero inView:self.view];
             
-            /*for (int i = 0; i < [[self.view subviews] count ]; i++)
-            {
-                UIView* transformedView = [[self.view subviews] objectAtIndex:i ];
-                if (CGRectIntersectsRect([transformedView frame], [pannedView frame]) && (transformedView != pannedView))
-                {
-                    transformedView.transform = CGAffineTransformMakeScale(1.3, 1.3);
-                    transformedView.layer.borderColor = [UIColor blackColor].CGColor;
-                    transformedView.layer.borderWidth = 2.0;
-                    transformedView.layer.cornerRadius = 3.0;
-                    i--;
-                }
-                else
-                {
-                    transformedView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-                    transformedView.layer.cornerRadius = 0.0;
-                    transformedView.layer.borderWidth = 0.0;
-                    break;
-                }
-                
-            }*/
-            
-
-            
+            [self algorithmForMovingRect:pannedView];
             break;
         }
         case   UIGestureRecognizerStateEnded:  case UIGestureRecognizerStateCancelled:
         {
             
-            pannedView.transform = CGAffineTransformMakeScale(1.0, 1.0);
-            pannedView.layer.cornerRadius = 0.0;
-            pannedView.layer.borderWidth = 0.0;
-
-            
-            for (DrawingFigure* figure in self.squares)
-            {
-                indexForFigure++;
-                if (CGRectIntersectsRect([self.currentFigure frame], [figure frame]) && (self.currentFigure != figure))
-                {
-                    if ([figure figure]  == [self.currentFigure figure])
-                    {
-                        [self.squares removeObjectAtIndex:indexForFigure];
-                        [self.squares removeObjectAtIndex:indexForCurrent];
-                        [pannedView removeFromSuperview];
-                        
-                        UIView *intersectsView = self.view;
-                        
-                        for(UIView *subview in [self.view subviews])
-                        {
-                            if (subview == figure)
-                            {
-                                intersectsView = subview;
-                                break;
-                            }
-                        }
-                        
-                        [intersectsView removeFromSuperview];
-                        self.kNumberOfFigures -= 2;
-                    }
-                    else
-                    {
-                        [self placeFigure:self.kNumberOfFigures];
-                        self.kNumberOfFigures++;
-                    }
-                    break;
-                }
-            }
-
-            
+            [self algorithmForRemovingAndAdding:pannedView];
             break;
         }
         default:
@@ -209,8 +125,72 @@
 
 }
 
+- (void) zoomIn:(UIView*) view
+{
+    view.transform = CGAffineTransformMakeScale(1.3, 1.3);
+    view.layer.borderColor = [UIColor blackColor].CGColor;
+    view.layer.borderWidth = 2.0;
+    view.layer.cornerRadius = 3.0;
+}
+
+- (void) zoomOut:(UIView*) view
+{
+    view.transform = CGAffineTransformMakeScale(1.0, 1.0);
+    view.layer.cornerRadius = 0.0;
+    view.layer.borderWidth = 0.0;
+}
 
 
+- (void) algorithmForRemovingAndAdding:(DrawingFigure*) view
+{
+    [self zoomOut:view];
+    
+    NSUInteger indexForCurrent = [self.squares indexOfObject:view];
+    
+    for (DrawingFigure* figure in self.squares)
+    {
+        if (CGRectIntersectsRect([view frame], [figure frame]) && (view != figure))
+        {
+            if ([figure figure]  == [view figure])
+            {
+                
+                [self.squares removeObjectAtIndex:indexForCurrent];
+                
+                NSUInteger indexForFigure = [self.squares indexOfObject:figure];
+                
+                [self.squares removeObjectAtIndex:indexForFigure];
+                
+                [view removeFromSuperview];
+                [figure removeFromSuperview];
+            }
+            else
+            {
+                [self placeFigure];
+            }
+            break;
+        }
+    }
+
+}
+
+
+- (void) algorithmForMovingRect:(DrawingFigure *)view
+{
+    for (int i = 0; i < [[self.view subviews] count ]; i++)
+    {
+        UIView* transformedView = [[self.view subviews] objectAtIndex:i ];
+        
+        if (transformedView != view)
+        {
+            
+            [self zoomOut:transformedView];
+            if (CGRectIntersectsRect([transformedView frame], [view frame]))
+            {
+                [self zoomIn:transformedView];
+            }
+        }
+    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
