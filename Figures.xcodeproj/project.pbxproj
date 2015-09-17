@@ -16,6 +16,7 @@
 		C3DE6B5B1B9DD0EF00BFD486 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3DE6B591B9DD0EF00BFD486 /* LaunchScreen.xib */; };
 		C3DE6B671B9DD0EF00BFD486 /* FiguresTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B661B9DD0EF00BFD486 /* FiguresTests.m */; };
 		C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */; };
+		C3E0334E1BAAD7D300D0E704 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0334D1BAAD7D300D0E704 /* NavigationController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,8 @@
 		C3DE6B661B9DD0EF00BFD486 /* FiguresTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FiguresTests.m; sourceTree = "<group>"; };
 		C3DE6B701B9DD11900BFD486 /* DrawingFigure.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawingFigure.h; sourceTree = "<group>"; };
 		C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingFigure.m; sourceTree = "<group>"; };
+		C3E0334C1BAAD7D300D0E704 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
+		C3E0334D1BAAD7D300D0E704 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				C3DE6B4C1B9DD0EF00BFD486 /* main.m */,
 				C3DE6B701B9DD11900BFD486 /* DrawingFigure.h */,
 				C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */,
+				C3E0334C1BAAD7D300D0E704 /* NavigationController.h */,
+				C3E0334D1BAAD7D300D0E704 /* NavigationController.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -232,6 +237,7 @@
 				C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */,
 				C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */,
 				C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */,
+				C3E0334E1BAAD7D300D0E704 /* NavigationController.m in Sources */,
 				C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */,
 				C32A76DA1BA2D7FD003FDD0F /* FigureController.m in Sources */,
 			);
