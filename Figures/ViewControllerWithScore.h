@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewControllerWithScore : UIViewController
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+- (void) showScore;
 
 @end

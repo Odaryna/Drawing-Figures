@@ -37,6 +37,7 @@ typedef NS_ENUM(NSInteger, DFFillingColor)
 
 @property (assign, nonatomic) enum DFFigureType figure;
 @property (assign, nonatomic) enum DFFillingColor color;
+@property (nonatomic, assign) CGPoint vector;
 
 - (DrawingFigure*)initWithType:(DFFigureType)figureType :(DFFillingColor)color;
 

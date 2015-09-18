@@ -10,7 +10,6 @@
 #import "ViewControllerWithScore.h"
 
 @interface ViewControllerWithScore ()
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
 @end
 
@@ -18,8 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.scoreLabel.text = [self.scoreLabel.text stringByAppendingString: [FigureController keepScore]];
+}
 
+- (void) showScore
+{
+    self.scoreLabel.text = [self.scoreLabel.text stringByAppendingString: [FigureController keepScore]];
 }
 
 - (void)didReceiveMemoryWarning {

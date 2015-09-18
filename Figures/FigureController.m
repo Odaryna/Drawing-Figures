@@ -8,9 +8,10 @@
 
 #import "FigureController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "ViewControllerWithScore.h"
 
-static const NSInteger kNumberOfFigures = 15;
-
+static const NSInteger kNumberOfFigures = 20;
+static NSTimeInterval startTime = 0;
 
 @interface FigureController ()
 
@@ -18,7 +19,7 @@ static const NSInteger kNumberOfFigures = 15;
 @property (nonatomic, strong) NSMutableArray *zoomInViews;
 @property (nonatomic, strong) DrawingFigure *recognizerView;
 @property (nonatomic, strong) NSTimer *timer;
-
+@property (nonatomic, strong) NSTimer *timeForNewFigure;
 
 - (void) placeFigure;
 - (void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer;
@@ -27,71 +28,83 @@ static const NSInteger kNumberOfFigures = 15;
 - (void) algorithmForRemovingAndAdding:(DrawingFigure*) view;
 - (void) algorithmForMovingRect:(DrawingFigure *)view;
 - (void) timerFire;
+- (CGPoint) generalizeVector;
 
 
 @end
 
 @implementation FigureController
 
-static double score = 0;
-
 @synthesize squares = _squares;
 @synthesize recognizerView = _recognizerView;
 @synthesize zoomInViews = _zoomInViews;
-@synthesize timer = _timer;
+//@synthesize timer = _timer;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.squares = [[NSMutableArray alloc] init];
     self.zoomInViews = [[NSMutableArray alloc] init];
+    startTime = CACurrentMediaTime();
 
     for (int i = 0; i < kNumberOfFigures; ++i)
     {
         [self placeFigure];
     }
     
+    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
+    
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
 }
 
 - (void) placeFigure
 {
-        NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
-        NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
-        DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
-        CGSize size = self.view.frame.size;
+    NSInteger type = ((float)rand() / (float)RAND_MAX) * DFFigureTypeCount;
+    NSInteger color = ((float)rand() / (float)RAND_MAX) * DFColorCount;
+    DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
+    ob.vector = [self generalizeVector];
+    CGSize size = self.view.frame.size;
     
-        NSInteger figureSize = 50 + ((float)rand() / (float)RAND_MAX);
+    NSInteger figureSize = 50 + ((float)rand() / (float)RAND_MAX);
+    
+    // 2. Find frame
+    CGRect figureFrame = CGRectZero;
+    
+    int i = 0;
+    for(; i < 15; i++)
+    {
+        figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
+                                 ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
+                                 figureSize, figureSize);
         
-        // 2. Find frame
-        CGRect figureFrame = CGRectZero;
-        for(int i = 0; i < 15; i++)
+        BOOL intersects = NO;
+        for (DrawingFigure* figure in self.squares)
         {
-            figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
-                                               ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
-                                               figureSize, figureSize);
-            
-            BOOL intersects = NO;
-            for (DrawingFigure* figure in self.squares)
+            if (CGRectIntersectsRect(figureFrame, [figure frame]))
             {
-                if (CGRectIntersectsRect(figureFrame, [figure frame]))
-                {
-                    intersects = YES;
-                    break;
-                }
-            }
-
-            if (!intersects)
-            {
+                intersects = YES;
                 break;
             }
         }
         
-        ob.frame = figureFrame;
+        if (!intersects)
+        {
+            break;
+        }
+        
+        
+    }
+    
+    if (i == 15)
+    {
+        [self performSegueWithIdentifier:@"gameOver" sender:self];
+    }
+    
+    ob.frame = figureFrame;
     
     [self.squares addObject:ob];
     [self.view addSubview:ob];
-
+    
     UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector( moveSubViewWithGestureRecognizer:)];
     [ob addGestureRecognizer:panGestureRecognizer];
 
@@ -243,64 +256,88 @@ static double score = 0;
 
 - (void)timerFire
 {
-    CGFloat distance = 15.0f;
-    CGFloat viewHeight = self.view.frame.size.height-25;
-    CGFloat viewWidth = self.view.frame.size.width-25;
+    
+    CGFloat viewHeight = self.view.frame.size.height;
+    CGFloat viewWidth = self.view.frame.size.width;
     
     __weak typeof(DrawingFigure) *weakView = self.recognizerView;
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction
                      animations:^
-    {
-    score  = CACurrentMediaTime();
-    for (DrawingFigure* figure in self.squares)
-        {
-            if (weakView == nil || (weakView && ![figure isEqual:weakView]))
-            {
-                CGFloat diffX = ((float)rand() / (float)RAND_MAX) * distance - distance / 2.0f;
-                CGFloat diffY = ((float)rand() / (float)RAND_MAX) * distance - distance / 2.0f;
-                
-                                if(figure.center.x >= viewWidth)
-                                    {
-                                            if(diffX > 0)
-                                                {
-                                                        diffX *= -1;
-                                                    }
-                                        }
-                                if(figure.center.x <= 25)
-                                   {
-                                            if(diffX < 0)
-                                                {
-                                                        diffX *= -1;
-                                                    }
-                                        }
-                                if(figure.center.y >= viewHeight)
-                                    {
-                                            if(diffY > 0)
-                                                {
-                                                        diffY *= -1;
-                                                    }
-                                       }
-                                if(figure.center.y <= 25)
-                                    {
-                                            if(diffY < 0)
-                                                {
-                                                        diffY *= -1;
-                                                    }
-                                        }
-                figure.center = CGPointMake(figure.center.x + diffX, figure.center.y + diffY);
-            }
-        }
-        
-                     } completion:^(BOOL finished) {
-                         self.recognizerView = nil;
-                     }];
-    score = CACurrentMediaTime() - score ;
+     {
+       
+         for (DrawingFigure* figure in self.squares)
+         {
+             if (weakView == nil || (weakView && ![figure isEqual:weakView]))
+             {
+                 
+                 CGPoint vector = figure.vector;
+                 if(figure.center.x + figure.frame.size.width / 2 >= viewWidth)
+                 {
+                     vector = [self generalizeVector];
+                     if(vector.x > 0)
+                     {
+                         vector.x *= -1;
+                     }
+                 }
+                 if(figure.center.x <= figure.frame.size.width / 2)
+                 {
+                     vector = [self generalizeVector];
+                     if(vector.x < 0)
+                     {
+                         vector.x *= -1;
+                     }
+                 }
+                 if(figure.center.y + figure.frame.size.height / 2 >= viewHeight)
+                 {
+                     vector = [self generalizeVector];
+                     if(vector.y > 0)
+                     {
+                         vector.y *= -1;
+                     }
+                 }
+                 if(figure.center.y <= figure.frame.size.height / 2)
+                 {
+                     vector = [self generalizeVector];
+                     if(vector.y < 0)
+                     {
+                         vector.y *= -1;
+                     }
+                 }
+                 figure.vector = vector;
+                 figure.center = CGPointMake(figure.center.x + vector.x, figure.center.y + vector.y);
+             }
+         }
+         
+     } completion:^(BOOL finished) {
+         self.recognizerView = nil;
+     }];
+    
 }
 
 + (NSString*) keepScore
 {
-    return [NSString stringWithFormat:@"%f", score];
+    startTime = CACurrentMediaTime() - startTime;
+    return [NSString stringWithFormat:@"%.2f", startTime];
 }
+
+- (CGPoint) generalizeVector
+{
+    CGFloat distance = 35.0f;
+    CGFloat diffX = ((float)rand() / (float)RAND_MAX) * distance - distance / 2.0f;
+    CGFloat diffY = ((float)rand() / (float)RAND_MAX) * distance - distance / 2.0f;
+    
+    return CGPointMake(diffX, diffY);
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"gameOver"])
+    {
+        ViewControllerWithScore *viewController = (ViewControllerWithScore*)segue.destinationViewController;
+        [viewController showScore];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
