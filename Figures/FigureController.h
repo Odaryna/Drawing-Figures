@@ -11,6 +11,6 @@
 
 @interface FigureController : UIViewController
 
-
++ (NSString*) keepScore;
 
 @end

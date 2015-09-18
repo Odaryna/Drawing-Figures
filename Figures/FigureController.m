@@ -19,6 +19,7 @@ static const NSInteger kNumberOfFigures = 15;
 @property (nonatomic, strong) DrawingFigure *recognizerView;
 @property (nonatomic, strong) NSTimer *timer;
 
+
 - (void) placeFigure;
 - (void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer;
 - (void) zoomIn:(UIView*) view;
@@ -27,9 +28,12 @@ static const NSInteger kNumberOfFigures = 15;
 - (void) algorithmForMovingRect:(DrawingFigure *)view;
 - (void) timerFire;
 
+
 @end
 
 @implementation FigureController
+
+static double score = 0;
 
 @synthesize squares = _squares;
 @synthesize recognizerView = _recognizerView;
@@ -242,13 +246,13 @@ static const NSInteger kNumberOfFigures = 15;
     CGFloat distance = 15.0f;
     CGFloat viewHeight = self.view.frame.size.height-25;
     CGFloat viewWidth = self.view.frame.size.width-25;
-    CACurrentMediaTime();
     
     __weak typeof(DrawingFigure) *weakView = self.recognizerView;
     [UIView animateWithDuration:0.1 delay:0.0 options:UIViewAnimationOptionAllowUserInteraction
-                     animations:^{
-        
-        for (DrawingFigure* figure in self.squares)
+                     animations:^
+    {
+    score  = CACurrentMediaTime();
+    for (DrawingFigure* figure in self.squares)
         {
             if (weakView == nil || (weakView && ![figure isEqual:weakView]))
             {
@@ -290,6 +294,12 @@ static const NSInteger kNumberOfFigures = 15;
                      } completion:^(BOOL finished) {
                          self.recognizerView = nil;
                      }];
+    score = CACurrentMediaTime() - score ;
+}
+
++ (NSString*) keepScore
+{
+    return [NSString stringWithFormat:@"%f", score];
 }
 
 - (void)didReceiveMemoryWarning {
