@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "DrawingFigure.h"
+#import "ViewControllerWithScore.h"
 
 @interface FigureController : UIViewController
-
-+ (NSString*) keepScore;
 
 @end

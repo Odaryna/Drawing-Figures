@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		C31FFDFF1BAC033800013A49 /* ViewControllerWithScore.m in Sources */ = {isa = PBXBuildFile; fileRef = C31FFDFE1BAC033800013A49 /* ViewControllerWithScore.m */; };
 		C31FFE051BAC0A0600013A49 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31FFE041BAC0A0600013A49 /* TableViewController.m */; };
 		C32A76DA1BA2D7FD003FDD0F /* FigureController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A76D91BA2D7FD003FDD0F /* FigureController.m */; };
 		C37405571BAB16E500358F46 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C37405561BAB16E500358F46 /* Main.storyboard */; };
@@ -19,6 +18,7 @@
 		C3DE6B671B9DD0EF00BFD486 /* FiguresTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B661B9DD0EF00BFD486 /* FiguresTests.m */; };
 		C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */; };
 		C3E0334E1BAAD7D300D0E704 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0334D1BAAD7D300D0E704 /* NavigationController.m */; };
+		C3FB28711BAD9BCA007E274A /* ViewControllerWithScore.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +33,6 @@
 
 /* Begin PBXFileReference section */
 		C31FFDFD1BAC033800013A49 /* ViewControllerWithScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewControllerWithScore.h; sourceTree = "<group>"; };
-		C31FFDFE1BAC033800013A49 /* ViewControllerWithScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerWithScore.m; sourceTree = "<group>"; };
 		C31FFE031BAC0A0600013A49 /* TableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableViewController.h; sourceTree = "<group>"; };
 		C31FFE041BAC0A0600013A49 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		C32A76D81BA2D7FD003FDD0F /* FigureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FigureController.h; sourceTree = "<group>"; };
@@ -55,6 +54,7 @@
 		C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawingFigure.m; sourceTree = "<group>"; };
 		C3E0334C1BAAD7D300D0E704 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		C3E0334D1BAAD7D300D0E704 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerWithScore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 				C3E0334C1BAAD7D300D0E704 /* NavigationController.h */,
 				C3E0334D1BAAD7D300D0E704 /* NavigationController.m */,
 				C31FFDFD1BAC033800013A49 /* ViewControllerWithScore.h */,
-				C31FFDFE1BAC033800013A49 /* ViewControllerWithScore.m */,
+				C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */,
 				C31FFE031BAC0A0600013A49 /* TableViewController.h */,
 				C31FFE041BAC0A0600013A49 /* TableViewController.m */,
 			);
@@ -246,8 +246,8 @@
 			files = (
 				C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */,
 				C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */,
-				C31FFDFF1BAC033800013A49 /* ViewControllerWithScore.m in Sources */,
 				C31FFE051BAC0A0600013A49 /* TableViewController.m in Sources */,
+				C3FB28711BAD9BCA007E274A /* ViewControllerWithScore.m in Sources */,
 				C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */,
 				C3E0334E1BAAD7D300D0E704 /* NavigationController.m in Sources */,
 				C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */,

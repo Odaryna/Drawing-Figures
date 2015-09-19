@@ -2,11 +2,11 @@
 //  ViewControllerWithScore.m
 //  Figures
 //
-//  Created by Administrator on 9/18/15.
+//  Created by Administrator on 9/19/15.
 //  Copyright (c) 2015 Administrator. All rights reserved.
 //
 
-#import "FigureController.h"
+
 #import "ViewControllerWithScore.h"
 
 @interface ViewControllerWithScore ()
@@ -15,13 +15,13 @@
 
 @implementation ViewControllerWithScore
 
+@synthesize scoreLabel;
+@synthesize stringWithScore = _stringWithScore;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-}
-
-- (void) showScore
-{
-    self.scoreLabel.text = [self.scoreLabel.text stringByAppendingString: [FigureController keepScore]];
+    scoreLabel.text = self.stringWithScore;
+    self.stringWithScore = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -29,14 +29,11 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void) showScore: (NSString*) score
+{
+    scoreLabel.text = score;
+    self.stringWithScore = score;
 }
-*/
+
 
 @end

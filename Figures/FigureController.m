@@ -8,18 +8,21 @@
 
 #import "FigureController.h"
 #import <QuartzCore/QuartzCore.h>
-#import "ViewControllerWithScore.h"
+
 
 static const NSInteger kNumberOfFigures = 20;
-static NSTimeInterval startTime = 0;
 
 @interface FigureController ()
+
 
 @property (nonatomic, strong) NSMutableArray *squares;
 @property (nonatomic, strong) NSMutableArray *zoomInViews;
 @property (nonatomic, strong) DrawingFigure *recognizerView;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSTimer *timeForNewFigure;
+@property (nonatomic, assign) NSTimeInterval startTime;
+@property (nonatomic, strong) NSString *scoreString;
+
 
 - (void) placeFigure;
 - (void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer;
@@ -28,7 +31,10 @@ static NSTimeInterval startTime = 0;
 - (void) algorithmForRemovingAndAdding:(DrawingFigure*) view;
 - (void) algorithmForMovingRect:(DrawingFigure *)view;
 - (void) timerFire;
+- (void) keepScore;
 - (CGPoint) generalizeVector;
+- (IBAction)stopTheGame:(UIBarButtonItem *)sender;
+
 
 
 @end
@@ -38,21 +44,21 @@ static NSTimeInterval startTime = 0;
 @synthesize squares = _squares;
 @synthesize recognizerView = _recognizerView;
 @synthesize zoomInViews = _zoomInViews;
-//@synthesize timer = _timer;
+@synthesize scoreString = _scoreString;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.squares = [[NSMutableArray alloc] init];
     self.zoomInViews = [[NSMutableArray alloc] init];
-    startTime = CACurrentMediaTime();
+    self.startTime = CACurrentMediaTime();
 
     for (int i = 0; i < kNumberOfFigures; ++i)
     {
         [self placeFigure];
     }
     
-    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
+    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
 }
@@ -71,7 +77,7 @@ static NSTimeInterval startTime = 0;
     CGRect figureFrame = CGRectZero;
     
     int i = 0;
-    for(; i < 15; i++)
+    for(; i < 20; i++)
     {
         figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
                                  ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
@@ -95,7 +101,7 @@ static NSTimeInterval startTime = 0;
         
     }
     
-    if (i == 15)
+    if (i == 20)
     {
         [self performSegueWithIdentifier:@"gameOver" sender:self];
     }
@@ -314,10 +320,11 @@ static NSTimeInterval startTime = 0;
     
 }
 
-+ (NSString*) keepScore
+- (void) keepScore
 {
-    startTime = CACurrentMediaTime() - startTime;
-    return [NSString stringWithFormat:@"%.2f", startTime];
+    self.startTime = CACurrentMediaTime() - self.startTime;
+    NSString* str= [NSString stringWithFormat:@"%.2f", self.startTime];
+    self.scoreString = str;
 }
 
 - (CGPoint) generalizeVector
@@ -329,13 +336,23 @@ static NSTimeInterval startTime = 0;
     return CGPointMake(diffX, diffY);
 }
 
+- (IBAction)stopTheGame:(UIBarButtonItem *)sender
+{
+    [self.timer invalidate];
+    self.timer  = nil;
+    [self.timeForNewFigure invalidate];
+    self.timeForNewFigure  = nil;
+}
+
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([segue.identifier isEqualToString:@"gameOver"])
     {
+        [self keepScore];
         ViewControllerWithScore *viewController = (ViewControllerWithScore*)segue.destinationViewController;
-        [viewController showScore];
-    }
+        [viewController showScore:self.scoreString];
+        
+     }
 }
 
 
@@ -344,14 +361,5 @@ static NSTimeInterval startTime = 0;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
