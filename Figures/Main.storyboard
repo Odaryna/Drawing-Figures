@@ -112,7 +112,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="NEU-hx-xbH"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="B5p-si-x46"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-gW-1fF">
@@ -190,7 +190,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="BVu-fi-LqT"/>
+        <segue reference="B5p-si-x46"/>
         <segue reference="twO-Ok-AVZ"/>
     </inferredMetricsTieBreakers>
 </document>

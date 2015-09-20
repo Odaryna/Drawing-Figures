@@ -8,6 +8,8 @@
 
 
 #import "ViewControllerWithScore.h"
+#import "TableViewController.h"
+#import "ViewController.h"
 
 @interface ViewControllerWithScore ()
 
@@ -22,6 +24,8 @@
     [super viewDidLoad];
     scoreLabel.text = self.stringWithScore;
     self.stringWithScore = @"";
+
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +37,12 @@
 {
     scoreLabel.text = score;
     self.stringWithScore = score;
+    
+    TableViewController* table = [[TableViewController alloc] init];
+    ViewController* firstView = [[ViewController alloc] init];
+    
+    [table.map setObject:self.stringWithScore forKey:firstView.nameOfThePlayer];
+
 }
 
 

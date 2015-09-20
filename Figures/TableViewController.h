@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TableViewController : UITableViewController
-
+@property (nonatomic, strong) NSMutableDictionary *map;
 @end

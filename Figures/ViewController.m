@@ -12,11 +12,12 @@
 
 
 
+
 @interface ViewController ()
 
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 @property (nonatomic,strong) UIAlertView *alertView;
-@property (nonatomic,strong) NSString* nameOfThePlayer;
+
 - (IBAction)startButton;
 
 @end
@@ -28,8 +29,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.alertView = [[UIAlertView alloc] initWithTitle:@"Getting started!" message:@"Enter your name" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    self.alertView = [[UIAlertView alloc] initWithTitle:@"Getting started!" message:@"Enter your name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    
 }
 
 

@@ -13,16 +13,23 @@
 
 @interface TableViewController ()
 
-@property NSDictionary *map;
+@property (nonatomic, strong) NSArray *names;
+@property (nonatomic, strong) NSArray *scores;
 
 @end
 
 @implementation TableViewController
 
+@synthesize map = _map;
+@synthesize names = _names;
+@synthesize scores = _scores;
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
+    self.names = [self.map allKeys];
+    self.scores = [self.map allValues];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -35,26 +42,30 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
-    return 2;
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-
-    
-    
-    return 0;
+    return [self.map count];
 }
 
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
+ {
+     static NSString *simpleTableIdentifier = @"SimpleTableItem";
+     
+     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+     
+     if (cell == nil) {
+         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
+     }
+     
+     [cell.textLabel setText:[self.names objectAtIndex:indexPath.row]];
+     [cell.detailTextLabel setText:[self.scores objectAtIndex:indexPath.row]];
+     return cell;
 }
-*/
+
 
 /*
 // Override to support conditional editing of the table view.

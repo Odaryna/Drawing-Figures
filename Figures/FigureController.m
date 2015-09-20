@@ -14,14 +14,12 @@ static const NSInteger kNumberOfFigures = 20;
 
 @interface FigureController ()
 
-
 @property (nonatomic, strong) NSMutableArray *squares;
 @property (nonatomic, strong) NSMutableArray *zoomInViews;
 @property (nonatomic, strong) DrawingFigure *recognizerView;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSTimer *timeForNewFigure;
 @property (nonatomic, assign) NSTimeInterval startTime;
-@property (nonatomic, strong) NSString *scoreString;
 
 
 - (void) placeFigure;
@@ -33,9 +31,7 @@ static const NSInteger kNumberOfFigures = 20;
 - (void) timerFire;
 - (void) keepScore;
 - (CGPoint) generalizeVector;
-- (IBAction)stopTheGame:(UIBarButtonItem *)sender;
-
-
+- (IBAction) stopTheGame:(UIBarButtonItem *)sender;
 
 @end
 
@@ -52,13 +48,14 @@ static const NSInteger kNumberOfFigures = 20;
     self.squares = [[NSMutableArray alloc] init];
     self.zoomInViews = [[NSMutableArray alloc] init];
     self.startTime = CACurrentMediaTime();
+    self.scoreString = @"";
 
     for (int i = 0; i < kNumberOfFigures; ++i)
     {
         [self placeFigure];
     }
     
-    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
+    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
     
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
 }
@@ -73,7 +70,6 @@ static const NSInteger kNumberOfFigures = 20;
     
     NSInteger figureSize = 50 + ((float)rand() / (float)RAND_MAX);
     
-    // 2. Find frame
     CGRect figureFrame = CGRectZero;
     
     int i = 0;
@@ -101,7 +97,7 @@ static const NSInteger kNumberOfFigures = 20;
         
     }
     
-    if (i == 20)
+    if (i == 5)
     {
         [self performSegueWithIdentifier:@"gameOver" sender:self];
     }
@@ -354,7 +350,6 @@ static const NSInteger kNumberOfFigures = 20;
         
      }
 }
-
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

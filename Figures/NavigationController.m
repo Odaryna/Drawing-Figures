@@ -7,6 +7,8 @@
 //
 
 #import "NavigationController.h"
+#import "TableViewController.h"
+
 
 @interface NavigationController ()
 
@@ -16,7 +18,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    
+    TableViewController* table = [[TableViewController alloc] init];
+    table.map = [[NSMutableDictionary alloc] init];
+
 }
 
 - (void)didReceiveMemoryWarning {

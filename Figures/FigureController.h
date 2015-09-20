@@ -11,5 +11,5 @@
 #import "ViewControllerWithScore.h"
 
 @interface FigureController : UIViewController
-
+@property (nonatomic, strong) NSString *scoreString;
 @end
