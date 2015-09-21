@@ -9,15 +9,17 @@
 #import "ViewController.h"
 #import "DrawingFigure.h"
 #import "FigureController.h"
+#import "StoringFiles.h"
 
 
 
 
 @interface ViewController ()
 
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 @property (nonatomic,strong) UIAlertView *alertView;
+@property (nonatomic,strong) StoringFiles *files;
 
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex;
 - (IBAction)startButton;
 
 @end
@@ -26,12 +28,15 @@
 
 @synthesize alertView = _alertView;
 @synthesize nameOfThePlayer = _nameOfThePlayer;
+@synthesize files = _files;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
    
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Getting started!" message:@"Enter your name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
+    
+    self.files = [StoringFiles SharedInstance];
    
 }
 
@@ -53,6 +58,7 @@
     if (buttonIndex == 1){
         self.nameOfThePlayer = [alertView textFieldAtIndex:0].text;
         [self performSegueWithIdentifier:@"gettingStarted" sender:self];
+        self.files.nameOfThePlayer = self.nameOfThePlayer;
     }
     
 }

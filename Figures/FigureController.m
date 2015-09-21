@@ -305,7 +305,7 @@ bool clickedPause = false;
                          vector.x *= -1;
                      }
                  }
-                 if(figure.center.y + figure.frame.size.height / 2 + 45.0f >= viewHeight)
+                 if(figure.center.y + figure.frame.size.height / 2 + 50.0f >= viewHeight)
                  {
                      vector = [self generalizeVector];
                      if(vector.y > 0)

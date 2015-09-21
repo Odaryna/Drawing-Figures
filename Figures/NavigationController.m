@@ -7,8 +7,6 @@
 //
 
 #import "NavigationController.h"
-#import "TableViewController.h"
-
 
 @interface NavigationController ()
 
@@ -18,10 +16,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    TableViewController* table = [[TableViewController alloc] init];
-    table.map = [[NSMutableDictionary alloc] init];
-}
+ }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

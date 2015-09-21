@@ -10,11 +10,13 @@
 #import "ViewController.h"
 #import "FigureController.h"
 
+extern NSString *globalKey;
 
 @interface TableViewController ()
 
 @property (nonatomic, strong) NSArray *names;
 @property (nonatomic, strong) NSArray *scores;
+@property (nonatomic, strong) NSDictionary *map;
 
 @end
 
@@ -28,8 +30,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.names = [self.map allKeys];
-    self.scores = [self.map allValues];
+    self.map = [[NSUserDefaults standardUserDefaults] objectForKey:globalKey];
+    if (self.map == nil)
+    {
+        self.map = [[NSDictionary alloc] init];
+    }
+    else
+    {
+        self.names = [self.map allKeys];
+        self.scores = [self.map allValues];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -42,7 +52,7 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
 
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -53,13 +63,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath 
  {
-     static NSString *simpleTableIdentifier = @"SimpleTableItem";
-     
-     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
-     
-     if (cell == nil) {
-         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:simpleTableIdentifier];
-     }
+
+     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
      
      [cell.textLabel setText:[self.names objectAtIndex:indexPath.row]];
      [cell.detailTextLabel setText:[self.scores objectAtIndex:indexPath.row]];

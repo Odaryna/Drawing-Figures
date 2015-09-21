@@ -10,20 +10,35 @@
 #import "ViewControllerWithScore.h"
 #import "TableViewController.h"
 #import "ViewController.h"
+#import "FigureController.h"
+#import "StoringFiles.h"
+
+
+NSString* globalKey = @"leader";
 
 @interface ViewControllerWithScore ()
+
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+@property (nonatomic,strong) StoringFiles *files;
+
+- (IBAction)restartTheGame;
+- (IBAction)startTheGame;
+- (void)workWithDictionary;
+
 @end
 
 @implementation ViewControllerWithScore
 
 @synthesize scoreLabel;
 @synthesize stringWithScore = _stringWithScore;
+@synthesize files = _files;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self.navigationItem setHidesBackButton:YES];
     self.scoreLabel.text = self.stringWithScore;
+    self.files = [StoringFiles SharedInstance];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -37,4 +52,67 @@
 }
 
 
+- (IBAction)restartTheGame
+{
+
+    [self workWithDictionary];
+    [self performSegueWithIdentifier:@"restartTheGame" sender:self];
+    
+}
+
+- (IBAction)startTheGame
+{
+    [self workWithDictionary];
+    [self performSegueWithIdentifier:@"startTheGame" sender:self];
+}
+
+- (void)workWithDictionary
+{
+    NSDictionary *result = [[NSUserDefaults standardUserDefaults] objectForKey:globalKey];
+    if (result == nil)
+    {
+        result = [[NSDictionary alloc] init];
+    }
+    
+    NSMutableDictionary *mDict = [result mutableCopy];
+    
+    NSString *score = self.scoreLabel.text;
+    if (!score || score.length == 0)
+    {
+        score = @"<noname>";
+    }
+    
+    if (!self.nameOfThePlayer.length) self.nameOfThePlayer = self.files.nameOfThePlayer;
+    
+    NSString* scoreOfCurrent = @"";
+    
+    if ([mDict objectForKey: self.nameOfThePlayer ])
+    {
+        scoreOfCurrent = [mDict objectForKey: self.nameOfThePlayer ];
+        if ([scoreOfCurrent doubleValue] < [score doubleValue])
+        {
+            [mDict setObject:score forKey:self.nameOfThePlayer];
+        }
+    }
+    else
+    {
+        [mDict setObject:score forKey:self.nameOfThePlayer];
+    }
+    
+    
+    [[NSUserDefaults standardUserDefaults] setObject:mDict forKey:globalKey];
+}
+
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([segue.identifier isEqualToString:@"restartTheGame"])
+    {
+        FigureController *viewController = (FigureController*)segue.destinationViewController;
+    }
+    else if ([segue.identifier isEqualToString:@"startTheGame"])
+        {
+            ViewController *viewController = (ViewController*)segue.destinationViewController;
+        }
+}
 @end

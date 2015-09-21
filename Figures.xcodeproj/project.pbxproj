@@ -18,6 +18,8 @@
 		C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */; };
 		C3E0334E1BAAD7D300D0E704 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E0334D1BAAD7D300D0E704 /* NavigationController.m */; };
 		C3E833C01BAFFDD700986513 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3E833BF1BAFFDD700986513 /* Main.storyboard */; };
+		C3E833C31BB0386800986513 /* StoringFiles.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E833C21BB0386800986513 /* StoringFiles.m */; };
+		C3E833C71BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3E833C61BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg */; };
 		C3FB28711BAD9BCA007E274A /* ViewControllerWithScore.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +56,9 @@
 		C3E0334C1BAAD7D300D0E704 /* NavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		C3E0334D1BAAD7D300D0E704 /* NavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		C3E833BF1BAFFDD700986513 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		C3E833C11BB0386800986513 /* StoringFiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoringFiles.h; sourceTree = "<group>"; };
+		C3E833C21BB0386800986513 /* StoringFiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoringFiles.m; sourceTree = "<group>"; };
+		C3E833C61BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "5-fondo-de-poligono-gratis-para-sitios-web.jpg"; sourceTree = "<group>"; };
 		C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewControllerWithScore.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -123,6 +128,9 @@
 				C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */,
 				C31FFE031BAC0A0600013A49 /* TableViewController.h */,
 				C31FFE041BAC0A0600013A49 /* TableViewController.m */,
+				C3E833C11BB0386800986513 /* StoringFiles.h */,
+				C3E833C21BB0386800986513 /* StoringFiles.m */,
+				C3E833C61BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -224,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E833C71BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg in Resources */,
 				C3E833C01BAFFDD700986513 /* Main.storyboard in Resources */,
 				C3DE6B5B1B9DD0EF00BFD486 /* LaunchScreen.xib in Resources */,
 				C3DE6B581B9DD0EF00BFD486 /* Images.xcassets in Resources */,
@@ -251,6 +260,7 @@
 				C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */,
 				C3E0334E1BAAD7D300D0E704 /* NavigationController.m in Sources */,
 				C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */,
+				C3E833C31BB0386800986513 /* StoringFiles.m in Sources */,
 				C32A76DA1BA2D7FD003FDD0F /* FigureController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

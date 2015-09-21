@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="er5-k3-joQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-487" y="-558"/>
+            <point key="canvasLocation" x="-489" y="-567"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -65,7 +65,8 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.40722971110947237" green="0.35526002854836847" blue="0.45014599116161613" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.58476495390000005" green="0.53060865440000005" blue="0.72748974119999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="2Du-fm-D1C" firstAttribute="top" secondItem="etZ-br-iLR" secondAttribute="bottom" constant="16" id="BJn-rr-Nsf"/>
                             <constraint firstAttribute="centerY" secondItem="etZ-br-iLR" secondAttribute="centerY" constant="50" id="YJY-xU-XjP"/>
@@ -95,7 +96,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Game Over" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOJ-sK-6Lk">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Game Over" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOJ-sK-6Lk">
                                 <rect key="frame" x="82" y="131" width="156" height="60"/>
                                 <color key="backgroundColor" red="0.080847720380000002" green="0.27771999110000001" blue="0.47439236109999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -107,31 +108,6 @@
                                 <color key="highlightedColor" red="0.82470708319999997" green="0.88109173799999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="shadowColor" red="0.46382330059999999" green="0.9004252023" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZZ-05-ROP">
-                                <rect key="frame" x="82" y="231" width="156" height="52"/>
-                                <color key="backgroundColor" red="0.82470708319999997" green="0.88109173799999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="3Vz-eh-ect"/>
-                                    <constraint firstAttribute="width" constant="156" id="CYr-MF-0IE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-gW-1fF">
-                                <rect key="frame" x="175" y="350" width="34" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="34" id="2gf-za-FX2"/>
-                                    <constraint firstAttribute="height" constant="30" id="bhw-w4-eNf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <state key="normal" title="🔃">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <segue destination="FEc-Mg-hRw" kind="show" id="nnE-Sb-I71"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4qS-67-muv">
                                 <rect key="frame" x="111" y="350" width="34" height="30"/>
                                 <constraints>
@@ -143,11 +119,36 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="yN1-HC-Jcx"/>
+                                    <action selector="startTheGame" destination="tVr-pc-z7R" eventType="touchUpInside" id="lIi-oe-xMJ"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Jh-gW-1fF">
+                                <rect key="frame" x="175" y="350" width="34" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="34" id="2gf-za-FX2"/>
+                                    <constraint firstAttribute="height" constant="30" id="bhw-w4-eNf"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <state key="normal" title="🔃">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="restartTheGame" destination="tVr-pc-z7R" eventType="touchUpInside" id="IdH-hm-dIY"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dZZ-05-ROP">
+                                <rect key="frame" x="82" y="231" width="156" height="52"/>
+                                <color key="backgroundColor" red="0.82470708319999997" green="0.88109173799999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="52" id="3Vz-eh-ect"/>
+                                    <constraint firstAttribute="width" constant="156" id="CYr-MF-0IE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.3956206128128289" green="0.61597577460169362" blue="0.76641414141414144" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="3Jh-gW-1fF" secondAttribute="trailing" constant="95" id="6U6-nv-he1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="cOJ-sK-6Lk" secondAttribute="trailing" constant="66" id="92k-Ad-4of"/>
@@ -166,6 +167,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="scoreLabel" destination="dZZ-05-ROP" id="oa0-uB-Lvw"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="startTheGame" id="GA1-wO-0Sy"/>
+                        <segue destination="FEc-Mg-hRw" kind="show" identifier="restartTheGame" id="fAu-qO-yoq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fTm-8H-R39" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,7 +182,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="i5P-Em-I3u">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.92697171629459296" green="1" blue="0.99760435165478945" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="9Ym-fA-6aQ">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -213,6 +216,7 @@
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxC-Ew-Ktt">
                                 <rect key="frame" x="0.0" y="436" width="320" height="44"/>
+                                <color key="backgroundColor" red="1" green="0.3518353105" blue="0.62268893989999996" alpha="1" colorSpace="calibratedRGB"/>
                                 <items>
                                     <barButtonItem title="⬛️" id="yeh-x4-YPU">
                                         <connections>
@@ -225,9 +229,10 @@
                                         </connections>
                                     </barButtonItem>
                                 </items>
+                                <color key="barTintColor" red="0.82470708319999997" green="0.88109173799999996" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </toolbar>
                         </subviews>
-                        <color key="backgroundColor" red="0.72587659910000002" green="0.78261126889999999" blue="0.76571406040000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.58476495390000005" green="0.53060865440000005" blue="0.72748974119999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="fxC-Ew-Ktt" secondAttribute="trailing" id="hEz-df-GwY"/>
                             <constraint firstAttribute="bottom" secondItem="fxC-Ew-Ktt" secondAttribute="bottom" id="kjO-Ng-eVP"/>
@@ -243,11 +248,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aqf-WF-vuV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-220" y="106"/>
+            <point key="canvasLocation" x="-365" y="144"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="yN1-HC-Jcx"/>
-        <segue reference="nnE-Sb-I71"/>
+        <segue reference="GA1-wO-0Sy"/>
+        <segue reference="fAu-qO-yoq"/>
     </inferredMetricsTieBreakers>
 </document>
