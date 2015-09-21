@@ -11,7 +11,7 @@
 
 
 static const NSInteger kNumberOfFigures = 20;
-static const NSInteger kNumberAttempts = 5;
+static const NSInteger kNumberAttempts = 20;
 
 @interface FigureController ()
 
@@ -21,6 +21,7 @@ static const NSInteger kNumberAttempts = 5;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSTimer *timeForNewFigure;
 @property (nonatomic, assign) NSTimeInterval startTime;
+@property (nonatomic, assign) NSTimeInterval endTime;
 
 
 - (void) placeFigure;
@@ -32,7 +33,9 @@ static const NSInteger kNumberAttempts = 5;
 - (void) timerFire;
 - (void) keepScore;
 - (CGPoint) generalizeVector;
-- (IBAction) stopTheGame:(UIBarButtonItem *)sender;
+- (IBAction)stopTheGame:(UIBarButtonItem *)sender;
+- (IBAction)stopAndContinueGame:(UIBarButtonItem *)sender;
+- (void) startTimer;
 
 @end
 
@@ -43,12 +46,16 @@ static const NSInteger kNumberAttempts = 5;
 @synthesize zoomInViews = _zoomInViews;
 @synthesize scoreString = _scoreString;
 
+
+bool clickedPause = false;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.squares = [[NSMutableArray alloc] init];
     self.zoomInViews = [[NSMutableArray alloc] init];
     self.startTime = CACurrentMediaTime();
+    
     self.scoreString = @"";
 
     for (int i = 0; i < kNumberOfFigures; ++i)
@@ -56,9 +63,7 @@ static const NSInteger kNumberAttempts = 5;
         [self placeFigure];
     }
     
-    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
-    
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
+    [self startTimer];
 }
 
 - (void) placeFigure
@@ -116,10 +121,7 @@ static const NSInteger kNumberAttempts = 5;
 
 - (void)gameOver
 {
-    [self.timer invalidate];
-    self.timer  = nil;
-    [self.timeForNewFigure invalidate];
-    self.timeForNewFigure  = nil;
+    [self stopTimer];
     
     [self performSegueWithIdentifier:@"gameOver" sender:self];
 }
@@ -131,6 +133,9 @@ static const NSInteger kNumberAttempts = 5;
     {
         return;
     }
+    
+    
+    if (clickedPause) return;
     
    self.recognizerView = (DrawingFigure*)recognizer.view;
     
@@ -300,7 +305,7 @@ static const NSInteger kNumberAttempts = 5;
                          vector.x *= -1;
                      }
                  }
-                 if(figure.center.y + figure.frame.size.height / 2 >= viewHeight)
+                 if(figure.center.y + figure.frame.size.height / 2 + 45.0f >= viewHeight)
                  {
                      vector = [self generalizeVector];
                      if(vector.y > 0)
@@ -308,7 +313,7 @@ static const NSInteger kNumberAttempts = 5;
                          vector.y *= -1;
                      }
                  }
-                 if(figure.center.y <= figure.frame.size.height / 2)
+                 if(figure.center.y <= figure.frame.size.height / 2 + 64.0f)
                  {
                      vector = [self generalizeVector];
                      if(vector.y < 0)
@@ -329,8 +334,8 @@ static const NSInteger kNumberAttempts = 5;
 
 - (void) keepScore
 {
-    self.startTime = CACurrentMediaTime() - self.startTime;
-    NSString* str= [NSString stringWithFormat:@"%.2f", self.startTime];
+    self.endTime = CACurrentMediaTime() - self.startTime-self.endTime;
+    NSString* str= [NSString stringWithFormat:@"%.2f", self.endTime];
     self.scoreString = str;
 }
 
@@ -343,10 +348,7 @@ static const NSInteger kNumberAttempts = 5;
     return CGPointMake(diffX, diffY);
 }
 
-- (IBAction)stopTheGame:(UIBarButtonItem *)sender
-{
-    [self gameOver];
-}
+
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -354,6 +356,7 @@ static const NSInteger kNumberAttempts = 5;
     {
         [self keepScore];
         ViewControllerWithScore *viewController = (ViewControllerWithScore*)segue.destinationViewController;
+        viewController.nameOfThePlayer = self.nameOfThePlayer;
         [viewController showScore:self.scoreString];
         
      }
@@ -365,4 +368,43 @@ static const NSInteger kNumberAttempts = 5;
 }
 
 
+- (IBAction)stopTheGame:(UIBarButtonItem *)sender
+{
+    [self gameOver];
+}
+
+- (void) startTimer
+{
+    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
+}
+
+- (void) stopTimer
+{
+    [self.timer invalidate];
+    self.timer  = nil;
+    [self.timeForNewFigure invalidate];
+    self.timeForNewFigure  = nil;
+}
+
+
+- (IBAction)stopAndContinueGame:(UIBarButtonItem *)sender
+{
+    if ([sender.title isEqualToString:@"⚫️"])
+    {
+        self.endTime = self.startTime;
+        self.startTime = CACurrentMediaTime() - self.startTime;
+        
+        [self stopTimer];
+        clickedPause = true;
+        
+        sender.title = @"◻️";
+    }
+    else if ([sender.title isEqualToString:@"◻️"])
+    {
+        [self startTimer];
+        sender.title = @"⚫️";
+        clickedPause = false;
+    }
+}
 @end

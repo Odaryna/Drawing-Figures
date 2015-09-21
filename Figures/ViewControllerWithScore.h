@@ -10,9 +10,9 @@
 
 @interface ViewControllerWithScore : UIViewController
 
-
 @property (strong, nonatomic) NSString* stringWithScore;
-
 - (void) showScore: (NSString*) score;
+
+@property (nonatomic, strong) NSString* nameOfThePlayer;
 
 @end
