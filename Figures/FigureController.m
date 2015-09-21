@@ -11,6 +11,7 @@
 
 
 static const NSInteger kNumberOfFigures = 20;
+static const NSInteger kNumberAttempts = 5;
 
 @interface FigureController ()
 
@@ -73,7 +74,7 @@ static const NSInteger kNumberOfFigures = 20;
     CGRect figureFrame = CGRectZero;
     
     int i = 0;
-    for(; i < 20; i++)
+    for(; i < kNumberAttempts; i++)
     {
         figureFrame = CGRectMake(((float)rand() / (float)RAND_MAX) * (size.width - figureSize),
                                  ((float)rand() / (float)RAND_MAX) * (size.height - figureSize),
@@ -97,9 +98,9 @@ static const NSInteger kNumberOfFigures = 20;
         
     }
     
-    if (i == 5)
+    if (i >= kNumberAttempts)
     {
-        [self performSegueWithIdentifier:@"gameOver" sender:self];
+        [self gameOver];
     }
     
     ob.frame = figureFrame;
@@ -111,6 +112,16 @@ static const NSInteger kNumberOfFigures = 20;
     [ob addGestureRecognizer:panGestureRecognizer];
 
 
+}
+
+- (void)gameOver
+{
+    [self.timer invalidate];
+    self.timer  = nil;
+    [self.timeForNewFigure invalidate];
+    self.timeForNewFigure  = nil;
+    
+    [self performSegueWithIdentifier:@"gameOver" sender:self];
 }
 
 
@@ -334,10 +345,7 @@ static const NSInteger kNumberOfFigures = 20;
 
 - (IBAction)stopTheGame:(UIBarButtonItem *)sender
 {
-    [self.timer invalidate];
-    self.timer  = nil;
-    [self.timeForNewFigure invalidate];
-    self.timeForNewFigure  = nil;
+    [self gameOver];
 }
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

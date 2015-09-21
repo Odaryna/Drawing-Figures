@@ -12,7 +12,7 @@
 #import "ViewController.h"
 
 @interface ViewControllerWithScore ()
-
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation ViewControllerWithScore
@@ -22,10 +22,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    scoreLabel.text = self.stringWithScore;
-    self.stringWithScore = @"";
-
     
+    self.scoreLabel.text = self.stringWithScore;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,16 +31,9 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) showScore: (NSString*) score
+- (void)showScore:(NSString*)score
 {
-    scoreLabel.text = score;
     self.stringWithScore = score;
-    
-    TableViewController* table = [[TableViewController alloc] init];
-    ViewController* firstView = [[ViewController alloc] init];
-    
-    [table.map setObject:self.stringWithScore forKey:firstView.nameOfThePlayer];
-
 }
 
 

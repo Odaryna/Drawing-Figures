@@ -10,8 +10,9 @@
 
 @interface ViewControllerWithScore : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+
 @property (strong, nonatomic) NSString* stringWithScore;
+
 - (void) showScore: (NSString*) score;
 
 @end

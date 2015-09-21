@@ -19,10 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
     TableViewController* table = [[TableViewController alloc] init];
     table.map = [[NSMutableDictionary alloc] init];
-
 }
 
 - (void)didReceiveMemoryWarning {
