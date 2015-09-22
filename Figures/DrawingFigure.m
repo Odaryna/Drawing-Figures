@@ -20,6 +20,7 @@
 - (void) drawTrapezoid:(CGContextRef)currentContext :(CGRect)rect;
 - (void) drawSmile:(CGContextRef)currentContext :(CGRect)rect;
 - (void) drawSinus:(CGContextRef)currentContext :(CGRect)rect;
+- (void) downloadBomb:(CGContextRef)currentContext :(CGRect)rect;
 - (void) drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count;
 - (void) figureCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect;
 - (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
@@ -238,10 +239,23 @@
         case 8:
             [self drawNAngles:currentContext :innerRect :12];
             break;
+        case 9:
+            [self downloadBomb:currentContext :innerRect];
+            break;
         default:
             break;
     }
 }
+
+
+- (void) downloadBomb:(CGContextRef)currentContext :(CGRect)rect
+{
+    
+}
+
+
+
+
 
 - (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
 {

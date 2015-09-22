@@ -20,8 +20,10 @@ static const NSInteger kNumberAttempts = 20;
 @property (nonatomic, strong) DrawingFigure *recognizerView;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) NSTimer *timeForNewFigure;
+@property (nonatomic, strong) NSTimer *timeForBomb;
 @property (nonatomic, assign) NSTimeInterval startTime;
 @property (nonatomic, assign) NSTimeInterval endTime;
+@property (nonatomic, assign) NSTimeInterval pauseTime;
 
 
 - (void) placeFigure;
@@ -55,6 +57,7 @@ bool clickedPause = false;
     self.squares = [[NSMutableArray alloc] init];
     self.zoomInViews = [[NSMutableArray alloc] init];
     self.startTime = CACurrentMediaTime();
+    self.endTime = 0.0f;
     
     self.scoreString = @"";
 
@@ -334,7 +337,7 @@ bool clickedPause = false;
 
 - (void) keepScore
 {
-    self.endTime = CACurrentMediaTime() - self.startTime-self.endTime;
+    self.endTime += CACurrentMediaTime() - self.startTime;
     NSString* str= [NSString stringWithFormat:@"%.2f", self.endTime];
     self.scoreString = str;
 }
@@ -377,6 +380,7 @@ bool clickedPause = false;
 {
     self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
+    self.timeForBomb = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(createTheBomb) userInfo:nil repeats:YES];
 }
 
 - (void) stopTimer
@@ -388,20 +392,19 @@ bool clickedPause = false;
 }
 
 
+
 - (IBAction)stopAndContinueGame:(UIBarButtonItem *)sender
 {
     if ([sender.title isEqualToString:@"⚫️"])
     {
-        self.endTime = self.startTime;
-        self.startTime = CACurrentMediaTime() - self.startTime;
-        
+        self.endTime += CACurrentMediaTime() - self.startTime;
         [self stopTimer];
-        clickedPause = true;
-        
+        clickedPause = true;        
         sender.title = @"◻️";
     }
     else if ([sender.title isEqualToString:@"◻️"])
     {
+        self.startTime = CACurrentMediaTime();
         [self startTimer];
         sender.title = @"⚫️";
         clickedPause = false;

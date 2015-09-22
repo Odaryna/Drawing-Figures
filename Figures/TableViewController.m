@@ -15,7 +15,7 @@ extern NSString *globalKey;
 @interface TableViewController ()
 
 @property (nonatomic, strong) NSArray *names;
-@property (nonatomic, strong) NSArray *scores;
+@property (nonatomic, strong) NSMutableArray *scores;
 @property (nonatomic, strong) NSDictionary *map;
 
 @end
@@ -37,8 +37,27 @@ extern NSString *globalKey;
     }
     else
     {
-        self.names = [self.map allKeys];
-        self.scores = [self.map allValues];
+        self.scores = [[NSMutableArray alloc] init];
+        
+        self.names = [self.map keysSortedByValueUsingComparator: ^(id obj1, id obj2) {
+            
+            if ([obj1 doubleValue] > [obj2 doubleValue]) {
+                
+                return (NSComparisonResult)NSOrderedAscending;
+            }
+            if ([obj1 doubleValue] < [obj2 doubleValue]) {
+                
+                return (NSComparisonResult)NSOrderedDescending;
+            }
+            
+            return (NSComparisonResult)NSOrderedSame;
+        }];
+        
+        for (NSString* name in self.names)
+        {
+            [self.scores addObject:[self.map objectForKey:name ]];
+        }
+        
     }
 }
 

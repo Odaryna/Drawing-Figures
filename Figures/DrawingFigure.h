@@ -21,6 +21,7 @@ typedef NS_ENUM(NSInteger, DFFigureType)
     DFFigureTypeSinus,
     DFFigureTypeSmile,
     DFFigureTypeNAngles,
+    DFFigureTypeBomb,
     DFFigureTypeCount
 };
 
