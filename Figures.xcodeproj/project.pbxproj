@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C31FFE051BAC0A0600013A49 /* TableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C31FFE041BAC0A0600013A49 /* TableViewController.m */; };
 		C32A76DA1BA2D7FD003FDD0F /* FigureController.m in Sources */ = {isa = PBXBuildFile; fileRef = C32A76D91BA2D7FD003FDD0F /* FigureController.m */; };
+		C39225841BB164C6004ECB5D /* bomb-clipart-bomb2.png in Resources */ = {isa = PBXBuildFile; fileRef = C39225831BB164C6004ECB5D /* bomb-clipart-bomb2.png */; };
 		C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B4C1B9DD0EF00BFD486 /* main.m */; };
 		C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B4F1B9DD0EF00BFD486 /* AppDelegate.m */; };
 		C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B521B9DD0EF00BFD486 /* ViewController.m */; };
@@ -39,6 +40,7 @@
 		C31FFE041BAC0A0600013A49 /* TableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableViewController.m; sourceTree = "<group>"; };
 		C32A76D81BA2D7FD003FDD0F /* FigureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FigureController.h; sourceTree = "<group>"; };
 		C32A76D91BA2D7FD003FDD0F /* FigureController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FigureController.m; sourceTree = "<group>"; };
+		C39225831BB164C6004ECB5D /* bomb-clipart-bomb2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bomb-clipart-bomb2.png"; sourceTree = "<group>"; };
 		C3DE6B471B9DD0EF00BFD486 /* Figures.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Figures.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DE6B4B1B9DD0EF00BFD486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3DE6B4C1B9DD0EF00BFD486 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */,
 				C31FFE031BAC0A0600013A49 /* TableViewController.h */,
 				C31FFE041BAC0A0600013A49 /* TableViewController.m */,
+				C39225831BB164C6004ECB5D /* bomb-clipart-bomb2.png */,
 				C3E833C11BB0386800986513 /* StoringFiles.h */,
 				C3E833C21BB0386800986513 /* StoringFiles.m */,
 				C3E833C61BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg */,
@@ -235,6 +238,7 @@
 				C3E833C71BB04DEC00986513 /* 5-fondo-de-poligono-gratis-para-sitios-web.jpg in Resources */,
 				C3E833C01BAFFDD700986513 /* Main.storyboard in Resources */,
 				C3DE6B5B1B9DD0EF00BFD486 /* LaunchScreen.xib in Resources */,
+				C39225841BB164C6004ECB5D /* bomb-clipart-bomb2.png in Resources */,
 				C3DE6B581B9DD0EF00BFD486 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

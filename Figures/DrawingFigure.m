@@ -250,12 +250,12 @@
 
 - (void) downloadBomb:(CGContextRef)currentContext :(CGRect)rect
 {
+    UIImage *myImageObj =  [UIImage imageNamed:@"bomb-clipart-bomb2.png"];
+    //UIImageView *imageHolder = [[UIImageView alloc] initWithFrame:rect];
+    //imageHolder.image = myImageObj;
+    [myImageObj drawInRect:rect];
     
 }
-
-
-
-
 
 - (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
 {
