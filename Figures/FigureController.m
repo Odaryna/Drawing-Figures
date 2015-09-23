@@ -108,6 +108,7 @@ bool clickedPause = false;
     
     if (i >= kNumberAttempts)
     {
+        [self stopTimer];
         [self gameOver];
     }
     
@@ -124,7 +125,6 @@ bool clickedPause = false;
 
 - (void)gameOver
 {
-    [self stopTimer];
     
     [self performSegueWithIdentifier:@"gameOver" sender:self];
 }
@@ -147,6 +147,13 @@ bool clickedPause = false;
         case   UIGestureRecognizerStateBegan:
         {
            [self zoomIn:self.recognizerView];
+            if ([self.recognizerView figure] == DFFigureTypeBomb)
+            {
+                NSTimer *timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
+                [self stopTimer];
+
+                [self performSelector:@selector(gameOver) withObject:nil afterDelay:1];
+            }
             break;
         }
         case   UIGestureRecognizerStateChanged:
@@ -168,6 +175,41 @@ bool clickedPause = false;
     
     }
     
+
+}
+
+
+
+- (void) timerExplosion
+{
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    UIView* coverView = [[UIView alloc] initWithFrame:screenRect];
+    
+    [UIView animateWithDuration:0.1 animations:^{
+        NSInteger currentBackgroundColor = rand()%4;
+        
+        coverView.backgroundColor = [UIColor blackColor];
+        switch (currentBackgroundColor)
+        {
+            case 0:
+                coverView.backgroundColor = [UIColor greenColor];
+                break;
+            case 1:
+                coverView.backgroundColor = [UIColor redColor];
+                break;
+            case 2:
+                coverView.backgroundColor = [UIColor blueColor];
+                break;
+            case 3:
+                coverView.backgroundColor = [UIColor yellowColor];
+                break;
+            default:
+                break;
+        }
+        [self.view addSubview:coverView];
+    } completion:^(BOOL finished) {
+        
+    }];
 
 }
 
@@ -225,6 +267,16 @@ bool clickedPause = false;
     NSUInteger indexForCurrent = [self.squares indexOfObject:view];
     DrawingFigure* choosedView = [self.zoomInViews objectAtIndex:indexForMax];
 
+    if ([choosedView figure ] == DFFigureTypeBomb)
+    {
+        {
+            NSTimer *timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
+            [self stopTimer];
+            [self performSelector:@selector(gameOver) withObject:nil afterDelay:1];
+        }
+        return;
+
+    }
 
     if ([choosedView figure]  == [view figure])
         {
@@ -242,13 +294,6 @@ bool clickedPause = false;
             [self placeFigure];
         }
 
-    
-    [UIView animateWithDuration:0.1 animations:^{
-        self.recognizerView.transform = CGAffineTransformIdentity;
-    } completion:^(BOOL finished) {
-        self.recognizerView = nil;
-        
-    }];
     
     
     [self.zoomInViews removeAllObjects];
@@ -373,6 +418,7 @@ bool clickedPause = false;
 
 - (IBAction)stopTheGame:(UIBarButtonItem *)sender
 {
+    [self stopTimer];
     [self gameOver];
 }
 
@@ -380,7 +426,6 @@ bool clickedPause = false;
 {
     self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
     self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
-    self.timeForBomb = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(createTheBomb) userInfo:nil repeats:YES];
 }
 
 - (void) stopTimer
