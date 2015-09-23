@@ -79,10 +79,12 @@ NSString* globalKey = @"leader";
     NSString *score = self.scoreLabel.text;
     if (!score || score.length == 0)
     {
-        score = @"<noname>";
+        return;
     }
     
     if (!self.nameOfThePlayer.length) self.nameOfThePlayer = self.files.nameOfThePlayer;
+    
+    if (!self.nameOfThePlayer.length) self.nameOfThePlayer = @"<noname>";
     
     NSString* scoreOfCurrent = @"";
     

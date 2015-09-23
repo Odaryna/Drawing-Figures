@@ -54,6 +54,13 @@ bool clickedPause = false;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    UIGraphicsBeginImageContext(self.view.frame.size);
+    [[UIImage imageNamed:@"10e39f13ddfb80570f3e44fb2016cb76.jpg"] drawInRect:self.view.bounds];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    
     self.squares = [[NSMutableArray alloc] init];
     self.zoomInViews = [[NSMutableArray alloc] init];
     self.startTime = CACurrentMediaTime();
@@ -216,9 +223,11 @@ bool clickedPause = false;
 - (void) zoomIn:(UIView*) view
 {
     view.transform = CGAffineTransformMakeScale(1.3, 1.3);
-    view.layer.borderColor = [UIColor blackColor].CGColor;
+    view.layer.borderColor = [UIColor yellowColor].CGColor;
     view.layer.borderWidth = 2.0;
     view.layer.cornerRadius = 3.0;
+    view.layer.shadowOffset = CGSizeMake(0.0f, 5.0f);
+    view.layer.shadowOpacity = 0.5f;
 }
 
 - (void) zoomOut:(UIView*) view
@@ -226,6 +235,8 @@ bool clickedPause = false;
     view.transform = CGAffineTransformMakeScale(1.0, 1.0);
     view.layer.cornerRadius = 0.0;
     view.layer.borderWidth = 0.0;
+    view.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
+    view.layer.shadowOpacity = 0.0f;
 }
 
 
@@ -234,7 +245,7 @@ bool clickedPause = false;
     for (DrawingFigure* figure in self.squares)
     {
         if (figure == view) continue;
-        if (figure.layer.borderWidth == 2.0 && figure.layer.cornerRadius == 3.0)
+        if (figure.layer.borderWidth == 2.0 && figure.layer.cornerRadius == 3.0 && view.layer.shadowOpacity == 0.5f)
         {
             [self.zoomInViews addObject:figure];
         }
@@ -424,8 +435,8 @@ bool clickedPause = false;
 
 - (void) startTimer
 {
-    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
+    self.timeForNewFigure = [NSTimer scheduledTimerWithTimeInterval:2 target:self selector:@selector(placeFigure) userInfo:nil repeats:YES];
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.15 target:self selector:@selector(timerFire) userInfo:nil repeats:YES];
 }
 
 - (void) stopTimer
