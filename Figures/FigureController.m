@@ -24,10 +24,11 @@ static const NSInteger kNumberAttempts = 20;
 @property (nonatomic, assign) NSTimeInterval startTime;
 @property (nonatomic, assign) NSTimeInterval endTime;
 @property (nonatomic, assign) NSTimeInterval pauseTime;
+@property (nonatomic, strong) NSTimer *timerForExplosion;
 
 
 - (void) placeFigure;
-- (void) moveSubViewWithGestureRecognizer: (UIPanGestureRecognizer *) recognizer;
+- (void) moveSubViewWithGestureRecognizer:(UIPanGestureRecognizer *) recognizer;
 - (void) zoomIn:(UIView*) view;
 - (void) zoomOut:(UIView*) view;
 - (void) algorithmForRemovingAndAdding:(DrawingFigure*) view;
@@ -35,8 +36,8 @@ static const NSInteger kNumberAttempts = 20;
 - (void) timerFire;
 - (void) keepScore;
 - (CGPoint) generalizeVector;
-- (IBAction)stopTheGame:(UIBarButtonItem *)sender;
-- (IBAction)stopAndContinueGame:(UIBarButtonItem *)sender;
+- (IBAction) stopTheGame:(UIBarButtonItem *)sender;
+- (IBAction) stopAndContinueGame:(UIBarButtonItem *)sender;
 - (void) startTimer;
 
 @end
@@ -132,7 +133,6 @@ bool clickedPause = false;
 
 - (void)gameOver
 {
-    
     [self performSegueWithIdentifier:@"gameOver" sender:self];
 }
 
@@ -156,7 +156,7 @@ bool clickedPause = false;
            [self zoomIn:self.recognizerView];
             if ([self.recognizerView figure] == DFFigureTypeBomb)
             {
-                NSTimer *timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
+                self.timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
                 [self stopTimer];
 
                 [self performSelector:@selector(gameOver) withObject:nil afterDelay:1];
@@ -245,7 +245,7 @@ bool clickedPause = false;
     for (DrawingFigure* figure in self.squares)
     {
         if (figure == view) continue;
-        if (figure.layer.borderWidth == 2.0 && figure.layer.cornerRadius == 3.0 && view.layer.shadowOpacity == 0.5f)
+        if (figure.layer.borderWidth == 2.0 && figure.layer.cornerRadius == 3.0)
         {
             [self.zoomInViews addObject:figure];
         }
@@ -268,20 +268,23 @@ bool clickedPause = false;
         [lengths addObject:[NSNumber numberWithDouble:length ]];
     }
     
-    NSUInteger indexForMax = 0;
+    NSUInteger indexForMin = 0;
     
-    for (int i = 0; i < [lengths count] - 1; i++)
+    for (NSUInteger i = 1; i < [lengths count]; i++)
     {
-        if (lengths[i] > lengths[i+1]) indexForMax = i+1;
+        if ([lengths[i] doubleValue] < [lengths[indexForMin] doubleValue])
+        {
+          indexForMin = i;
+        }
     }
     
     NSUInteger indexForCurrent = [self.squares indexOfObject:view];
-    DrawingFigure* choosedView = [self.zoomInViews objectAtIndex:indexForMax];
+    DrawingFigure* choosedView = [self.zoomInViews objectAtIndex:indexForMin];
 
     if ([choosedView figure ] == DFFigureTypeBomb)
     {
         {
-            NSTimer *timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
+            self.timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
             [self stopTimer];
             [self performSelector:@selector(gameOver) withObject:nil afterDelay:1];
         }
@@ -417,6 +420,8 @@ bool clickedPause = false;
         ViewControllerWithScore *viewController = (ViewControllerWithScore*)segue.destinationViewController;
         viewController.nameOfThePlayer = self.nameOfThePlayer;
         [viewController showScore:self.scoreString];
+        [self.timerForExplosion invalidate];
+        self.timerForExplosion = nil;
         
      }
 }
@@ -424,12 +429,12 @@ bool clickedPause = false;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+
 }
 
 
 - (IBAction)stopTheGame:(UIBarButtonItem *)sender
-{
-    [self stopTimer];
+{    [self stopTimer];
     [self gameOver];
 }
 

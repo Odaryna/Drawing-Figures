@@ -13,4 +13,5 @@
 @interface FigureController : UIViewController
 @property (nonatomic, strong) NSString *scoreString;
 @property (nonatomic, strong) NSString *nameOfThePlayer;
+
 @end
