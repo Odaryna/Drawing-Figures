@@ -260,40 +260,46 @@
     switch(draw.color)
     {
         case 0:
-            CGContextSetRGBFillColor(currentContext, 4, 0.8, 7, 0.5);
+            CGContextSetRGBFillColor(currentContext, 1, 0.8, 0.5, 0.4);
             CGContextFillRect(currentContext, rect);
             CGContextSetRGBFillColor(currentContext, 0.8, 0.3, 0.3, 1.0);
             CGContextSetRGBStrokeColor(currentContext, 1.5, 0.2, 1.0, 1.0);
             break;
         case 1:
-            CGContextSetRGBFillColor(currentContext, 0.3, 10, 5, 0.5);
+            CGContextSetRGBFillColor(currentContext, 0.3, 12.9, 5.8, 0.4);
             CGContextFillRect(currentContext, rect);
-            CGContextSetRGBFillColor (currentContext, 0.0, 1.0, 0.0, 1.0);
-            CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
+            CGContextSetRGBFillColor (currentContext, 1.8, 0.4, 0.9, 1.0);
+            CGContextSetRGBStrokeColor (currentContext, 0.9, 4.5, 10.0, 1.0);
             break;
         case 2:
-            CGContextSetRGBFillColor(currentContext, 56, 87, 122, 0.5);
+            CGContextSetRGBFillColor(currentContext, 56, 87, 0.8, 0.4);
             CGContextFillRect(currentContext, rect);
-            CGContextSetRGBFillColor(currentContext, 1.5, 0.2, 1.0, 1.0);
-            CGContextSetRGBStrokeColor(currentContext,0.8,0.5,0.5,1);
+            CGContextSetRGBFillColor(currentContext, 1.5, 0.23, 50.8, 1.0);
+            CGContextSetRGBStrokeColor(currentContext,0.8, 0.5, 0.3, 1.0);
             break;
         case 3:
-            CGContextSetRGBFillColor(currentContext, 0.8, 1.5, 10, 0.5);
+            CGContextSetRGBFillColor(currentContext, 0.1, 1.5, 0.45, 0.4);
             CGContextFillRect(currentContext, rect);
-            CGContextSetRGBFillColor (currentContext, 3.0, 1.0, 0.0, 1.0);
-            CGContextSetRGBStrokeColor (currentContext, 0.0, 0.0, 1.0, 1.0);
+            CGContextSetRGBFillColor (currentContext, 3.0, 65.9, 0.5, 1.0);
+            CGContextSetRGBStrokeColor (currentContext, 29.6, 18, 1.8, 1.0);
             break;
         case 4:
-            CGContextSetRGBFillColor(currentContext, 43, 157, 32, 0.5);
+            CGContextSetRGBFillColor(currentContext, 0.3, 0.7, 3.2, 0.4);
             CGContextFillRect(currentContext, rect);
-            CGContextSetRGBFillColor (currentContext, 0.0, 0.0, 1.0, 1.0);
-            CGContextSetRGBStrokeColor(currentContext,0.7,0.4,0.5,1);
+            CGContextSetRGBFillColor (currentContext, 0.9, 1.6, 1.43, 1.0);
+            CGContextSetRGBStrokeColor(currentContext, 0.7, 0.4, 0.5, 1.0);
             break;
         case 5:
-            CGContextSetRGBFillColor(currentContext, 33, 12, 23, 0.5);
+            CGContextSetRGBFillColor(currentContext, 0.33, 0.78, 1.3, 0.4);
             CGContextFillRect(currentContext, rect);
-            CGContextSetRGBFillColor (currentContext, 0.0, 0.0, 0.0, 1.0);
+            CGContextSetRGBFillColor (currentContext, 0.3, 1.2, 3.2, 1.0);
             CGContextSetRGBStrokeColor(currentContext, 0.8, 0.3, 0.3, 1.0);
+            break;
+        case 6:
+            CGContextSetRGBFillColor(currentContext, 89, 0.7, 24, 0.4);
+            CGContextFillRect(currentContext, rect);
+            CGContextSetRGBFillColor (currentContext, 0.5, 0.8, 1.7, 1.0);
+            CGContextSetRGBStrokeColor(currentContext, 15, 0.2, 10.3, 1.0);
             break;
         default:
             break;

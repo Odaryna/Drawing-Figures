@@ -33,6 +33,7 @@ typedef NS_ENUM(NSInteger, DFFillingColor)
     DFColorYellow,
     DFColorBlue,
     DFColorBlack,
+    DFColorViolet,
     DFColorCount    
 };
 
