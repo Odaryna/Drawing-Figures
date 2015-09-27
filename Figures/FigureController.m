@@ -420,8 +420,12 @@ bool clickedPause = false;
         ViewControllerWithScore *viewController = (ViewControllerWithScore*)segue.destinationViewController;
         viewController.nameOfThePlayer = self.nameOfThePlayer;
         [viewController showScore:self.scoreString];
-        [self.timerForExplosion invalidate];
-        self.timerForExplosion = nil;
+        
+        if (self.timerForExplosion)
+        {
+            [self.timerForExplosion invalidate];
+            self.timerForExplosion = nil;
+        }
         
      }
 }
