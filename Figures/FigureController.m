@@ -49,10 +49,10 @@ static const NSInteger kNumberAttempts = 20;
 @synthesize zoomInViews = _zoomInViews;
 @synthesize scoreString = _scoreString;
 
-
 bool clickedPause = false;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     UIGraphicsBeginImageContext(self.view.frame.size);
@@ -84,7 +84,6 @@ bool clickedPause = false;
     DrawingFigure *ob = [[DrawingFigure alloc] initWithType:type:color];
     ob.vector = [self generalizeVector];
     CGSize size = self.view.frame.size;
-    
     NSInteger figureSize = 50 + ((float)rand() / (float)RAND_MAX);
     
     CGRect figureFrame = CGRectZero;
@@ -110,8 +109,6 @@ bool clickedPause = false;
         {
             break;
         }
-        
-        
     }
     
     if (i >= kNumberAttempts)
@@ -154,6 +151,7 @@ bool clickedPause = false;
         case   UIGestureRecognizerStateBegan:
         {
            [self zoomIn:self.recognizerView];
+            
             if ([self.recognizerView figure] == DFFigureTypeBomb)
             {
                 self.timerForExplosion = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(timerExplosion) userInfo:nil repeats:YES];
@@ -181,8 +179,6 @@ bool clickedPause = false;
             break;
     
     }
-    
-
 }
 
 
@@ -214,7 +210,8 @@ bool clickedPause = false;
                 break;
         }
         [self.view addSubview:coverView];
-    } completion:^(BOOL finished) {
+    } completion:^(BOOL finished)
+    {
         
     }];
 
@@ -274,13 +271,13 @@ bool clickedPause = false;
     {
         if ([lengths[i] doubleValue] < [lengths[indexForMin] doubleValue])
         {
-          indexForMin = i;
+            indexForMin = i;
         }
     }
     
     NSUInteger indexForCurrent = [self.squares indexOfObject:view];
     DrawingFigure* choosedView = [self.zoomInViews objectAtIndex:indexForMin];
-
+    
     if ([choosedView figure ] == DFFigureTypeBomb)
     {
         {
@@ -289,26 +286,23 @@ bool clickedPause = false;
             [self performSelector:@selector(gameOver) withObject:nil afterDelay:1];
         }
         return;
-
+        
     }
-
-    if ([choosedView figure]  == [view figure])
-        {
-                
-            [self.squares removeObjectAtIndex:indexForCurrent];
-                
-             NSUInteger indexForFigure = [self.squares indexOfObject:choosedView];
-             [self.squares removeObjectAtIndex:indexForFigure];
-                
-            [view removeFromSuperview];
-            [choosedView removeFromSuperview];
-        }
-    else
-        {
-            [self placeFigure];
-        }
-
     
+    if ([choosedView figure]  == [view figure])
+    {
+        [self.squares removeObjectAtIndex:indexForCurrent];
+        
+        NSUInteger indexForFigure = [self.squares indexOfObject:choosedView];
+        [self.squares removeObjectAtIndex:indexForFigure];
+        
+        [view removeFromSuperview];
+        [choosedView removeFromSuperview];
+    }
+    else
+    {
+        [self placeFigure];
+    }
     
     [self.zoomInViews removeAllObjects];
 
@@ -430,7 +424,8 @@ bool clickedPause = false;
      }
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 
@@ -438,7 +433,8 @@ bool clickedPause = false;
 
 
 - (IBAction)stopTheGame:(UIBarButtonItem *)sender
-{    [self stopTimer];
+{
+    [self stopTimer];
     [self gameOver];
 }
 

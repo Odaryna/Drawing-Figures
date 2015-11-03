@@ -14,7 +14,6 @@
 		C3DE6B4D1B9DD0EF00BFD486 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B4C1B9DD0EF00BFD486 /* main.m */; };
 		C3DE6B501B9DD0EF00BFD486 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B4F1B9DD0EF00BFD486 /* AppDelegate.m */; };
 		C3DE6B531B9DD0EF00BFD486 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B521B9DD0EF00BFD486 /* ViewController.m */; };
-		C3DE6B581B9DD0EF00BFD486 /* 2cc5d599c83248efb8440e290cc0f671.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C3DE6B571B9DD0EF00BFD486 /* 2cc5d599c83248efb8440e290cc0f671.jpg */; };
 		C3DE6B5B1B9DD0EF00BFD486 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C3DE6B591B9DD0EF00BFD486 /* LaunchScreen.xib */; };
 		C3DE6B671B9DD0EF00BFD486 /* FiguresTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B661B9DD0EF00BFD486 /* FiguresTests.m */; };
 		C3DE6B721B9DD11900BFD486 /* DrawingFigure.m in Sources */ = {isa = PBXBuildFile; fileRef = C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */; };
@@ -52,7 +51,6 @@
 		C3DE6B4F1B9DD0EF00BFD486 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		C3DE6B511B9DD0EF00BFD486 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		C3DE6B521B9DD0EF00BFD486 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		C3DE6B571B9DD0EF00BFD486 /* 2cc5d599c83248efb8440e290cc0f671.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2cc5d599c83248efb8440e290cc0f671.jpg; sourceTree = "<group>"; };
 		C3DE6B5A1B9DD0EF00BFD486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C3DE6B601B9DD0EF00BFD486 /* FiguresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FiguresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3DE6B651B9DD0EF00BFD486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -114,25 +112,9 @@
 				C3DE6B511B9DD0EF00BFD486 /* ViewController.h */,
 				C3DE6B521B9DD0EF00BFD486 /* ViewController.m */,
 				C3E833BF1BAFFDD700986513 /* Main.storyboard */,
-				C3DE6B571B9DD0EF00BFD486 /* 2cc5d599c83248efb8440e290cc0f671.jpg */,
 				C3DE6B591B9DD0EF00BFD486 /* LaunchScreen.xib */,
-				C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */,
 				C32A76D81BA2D7FD003FDD0F /* FigureController.h */,
 				C32A76D91BA2D7FD003FDD0F /* FigureController.m */,
-				C3E69D741BB2BD72005FA216 /* sky-home.jpg */,
-				C39225831BB164C6004ECB5D /* bomb-clipart-bomb2.png */,
-				C3E7AEEB1BB2FBA400BF259B /* 10e39f13ddfb80570f3e44fb2016cb76.jpg */,
-				848ED4FD1BB57EB400DF1204 /* 2cc5d599c83248efb8440e290cc0f671.jpg */,
-				C3E69D721BB2B199005FA216 /* flying-birds-silhouettes.jpg */,
-			);
-			path = Figures;
-			sourceTree = "<group>";
-		};
-		C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				C3DE6B4B1B9DD0EF00BFD486 /* Info.plist */,
-				C3DE6B4C1B9DD0EF00BFD486 /* main.m */,
 				C3DE6B701B9DD11900BFD486 /* DrawingFigure.h */,
 				C3DE6B711B9DD11900BFD486 /* DrawingFigure.m */,
 				C3E0334C1BAAD7D300D0E704 /* NavigationController.h */,
@@ -143,6 +125,21 @@
 				C31FFE041BAC0A0600013A49 /* TableViewController.m */,
 				C3E833C11BB0386800986513 /* StoringFiles.h */,
 				C3E833C21BB0386800986513 /* StoringFiles.m */,
+				C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */,
+			);
+			path = Figures;
+			sourceTree = "<group>";
+		};
+		C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C3DE6B4B1B9DD0EF00BFD486 /* Info.plist */,
+				C3DE6B4C1B9DD0EF00BFD486 /* main.m */,
+				C3E69D741BB2BD72005FA216 /* sky-home.jpg */,
+				C39225831BB164C6004ECB5D /* bomb-clipart-bomb2.png */,
+				C3E7AEEB1BB2FBA400BF259B /* 10e39f13ddfb80570f3e44fb2016cb76.jpg */,
+				848ED4FD1BB57EB400DF1204 /* 2cc5d599c83248efb8440e290cc0f671.jpg */,
+				C3E69D721BB2B199005FA216 /* flying-birds-silhouettes.jpg */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -252,7 +249,6 @@
 				C3DE6B5B1B9DD0EF00BFD486 /* LaunchScreen.xib in Resources */,
 				C39225841BB164C6004ECB5D /* bomb-clipart-bomb2.png in Resources */,
 				848ED4FE1BB57EB400DF1204 /* 2cc5d599c83248efb8440e290cc0f671.jpg in Resources */,
-				C3DE6B581B9DD0EF00BFD486 /* 2cc5d599c83248efb8440e290cc0f671.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -397,7 +393,6 @@
 		C3DE6B6B1B9DD0EF00BFD486 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Figures/Info.plist;
@@ -411,7 +406,6 @@
 		C3DE6B6C1B9DD0EF00BFD486 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Figures/Info.plist;

@@ -13,7 +13,6 @@
 #import "FigureController.h"
 #import "StoringFiles.h"
 
-
 NSString* globalKey = @"leader";
 
 @interface ViewControllerWithScore ()
@@ -33,15 +32,17 @@ NSString* globalKey = @"leader";
 @synthesize stringWithScore = _stringWithScore;
 @synthesize files = _files;
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
+    
     [self.navigationItem setHidesBackButton:YES];
     self.scoreLabel.text = self.stringWithScore;
     self.files = [StoringFiles SharedInstance];
-    
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
@@ -54,10 +55,8 @@ NSString* globalKey = @"leader";
 
 - (IBAction)restartTheGame
 {
-
     [self workWithDictionary];
     [self performSegueWithIdentifier:@"restartTheGame" sender:self];
-    
 }
 
 - (IBAction)startTheGame
@@ -69,6 +68,7 @@ NSString* globalKey = @"leader";
 - (void)workWithDictionary
 {
     NSDictionary *result = [[NSUserDefaults standardUserDefaults] objectForKey:globalKey];
+    
     if (result == nil)
     {
         result = [[NSDictionary alloc] init];
@@ -101,20 +101,7 @@ NSString* globalKey = @"leader";
         [mDict setObject:score forKey:self.nameOfThePlayer];
     }
     
-    
     [[NSUserDefaults standardUserDefaults] setObject:mDict forKey:globalKey];
 }
 
-
-- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([segue.identifier isEqualToString:@"restartTheGame"])
-    {
-        FigureController *viewController = (FigureController*)segue.destinationViewController;
-    }
-    else if ([segue.identifier isEqualToString:@"startTheGame"])
-        {
-            ViewController *viewController = (ViewController*)segue.destinationViewController;
-        }
-}
 @end

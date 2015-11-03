@@ -12,24 +12,24 @@
 
 @property (nonatomic) NSInteger countOfAngles;
 
-- (void) drawTriangle:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawRectangle:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawRhomb:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawCircle:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawHexagon:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawTrapezoid:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawSmile:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawSinus:(CGContextRef)currentContext :(CGRect)rect;
-- (void) downloadBomb:(CGContextRef)currentContext :(CGRect)rect;
-- (void) drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count;
-- (void) figureCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect;
-- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
+- (void)drawTriangle:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawRectangle:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawRhomb:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawCircle:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawHexagon:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawTrapezoid:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawSmile:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawSinus:(CGContextRef)currentContext :(CGRect)rect;
+- (void)downloadBomb:(CGContextRef)currentContext :(CGRect)rect;
+- (void)drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count;
+- (void)figureCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect;
+- (void)colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
 
 @end
 
 @implementation DrawingFigure
 
-- (DrawingFigure*) initWithType:(DFFigureType)figureType :(DFFillingColor)color;
+- (DrawingFigure*)initWithType:(DFFigureType)figureType :(DFFillingColor)color;
 {
     if (self = [super init])
     {
@@ -149,26 +149,26 @@
 
 -(void)drawSinus:(CGContextRef)currentContext :(CGRect)rect
 {
-        int y;
-        for(int x=rect.origin.x; x < rect.size.width; x++)
-            {
-                    y = ((rect.size.height/2) * sin(x/M_PI)) + rect.size.height/2;
-                    if (x == rect.origin.x)
-                        {
-                              CGContextMoveToPoint(currentContext, x, y);
-                        }
-                    else
-                    {
-                        
-                        CGContextAddLineToPoint(currentContext, x, y);
-                    }
-                }
-        CGContextStrokePath(currentContext);
+    int y;
+    for(int x=rect.origin.x; x < rect.size.width; x++)
+    {
+        y = ((rect.size.height/2) * sin(x/M_PI)) + rect.size.height/2;
+        if (x == rect.origin.x)
+        {
+            CGContextMoveToPoint(currentContext, x, y);
+        }
+        else
+        {
+            
+            CGContextAddLineToPoint(currentContext, x, y);
+        }
+    }
+    CGContextStrokePath(currentContext);
 
 }
 
 
-- (void) drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count
+- (void)drawNAngles:(CGContextRef)currentContext :(CGRect)rect :(NSInteger)count
 {
     if (count == 0) return;
     
@@ -207,7 +207,7 @@
 }
 
 
-- (void)figureCheck: (DrawingFigure*) draw :(CGContextRef)currentContext :(CGRect)rect ;
+- (void)figureCheck:(DrawingFigure*) draw :(CGContextRef)currentContext :(CGRect)rect ;
 {
     CGRect innerRect = CGRectInset (rect, 2, 2);
     switch(draw.figure)
@@ -248,14 +248,14 @@
 }
 
 
-- (void) downloadBomb:(CGContextRef)currentContext :(CGRect)rect
+- (void)downloadBomb:(CGContextRef)currentContext :(CGRect)rect
 {
     UIImage *myImageObj =  [UIImage imageNamed:@"bomb-clipart-bomb2.png"];
     [myImageObj drawInRect:rect];
     
 }
 
-- (void) colorCheck: (DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect ;
+- (void)colorCheck:(DrawingFigure*)draw :(CGContextRef)currentContext :(CGRect)rect
 {
     switch(draw.color)
     {

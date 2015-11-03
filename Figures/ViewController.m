@@ -40,7 +40,6 @@
     UIGraphicsEndImageContext();
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:image];
-
     
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Getting started!" message:@"Enter your name:" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
     self.alertView.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -49,9 +48,8 @@
    
 }
 
-
-
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
