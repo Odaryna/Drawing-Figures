@@ -123,8 +123,6 @@
 				C3FB28701BAD9BCA007E274A /* ViewControllerWithScore.m */,
 				C31FFE031BAC0A0600013A49 /* TableViewController.h */,
 				C31FFE041BAC0A0600013A49 /* TableViewController.m */,
-				C3E833C11BB0386800986513 /* StoringFiles.h */,
-				C3E833C21BB0386800986513 /* StoringFiles.m */,
 				C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */,
 			);
 			path = Figures;
@@ -133,6 +131,8 @@
 		C3DE6B4A1B9DD0EF00BFD486 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C3E833C11BB0386800986513 /* StoringFiles.h */,
+				C3E833C21BB0386800986513 /* StoringFiles.m */,
 				C3DE6B4B1B9DD0EF00BFD486 /* Info.plist */,
 				C3DE6B4C1B9DD0EF00BFD486 /* main.m */,
 				C3E69D741BB2BD72005FA216 /* sky-home.jpg */,
